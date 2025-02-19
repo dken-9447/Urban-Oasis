@@ -1,10 +1,9 @@
 <h1 align="center" style="font-weight: bold;">Urban Oasis 💻</h1>
 
 <p align="center">
-<a href="#tech">Technologies</a>
-<a href="#started">Getting Started</a>
-<a href="#colab">Collaborators</a>
-<a href="#contribute">Contribute</a> 
+<a href="#layout">Layout</a>
+<a href="#technologies">Technologies</a>
+<a href="https://www.figma.com/proto/BcspAt5QTp8BAecoJmAJO4/UrbanOasis?node-id=351-8056">Figma Wireframe</a>
 </p>
 
 <p align="center">The purpose of the Urban Oasis App is to create an app aimed at helping people in Orange County make healthier eating decisions. The app will provide users with the ability to find produce stores near them that sell healthy food options. Users will also be able to search through healthy recipes, view price estimates to determine their budget, and locate nearby stores that sell the ingredients they need.</p>
@@ -315,5 +314,3 @@ Now that we’ve installed **VSCode, Node.js, and Expo CLI**, let's set up **And
 ---
 
 ### **🚀 Now You're Ready to Start Developing!**
-
-Would you like additional setup for **ESLint and Prettier configs** to ensure your code follows best practices? 🎯

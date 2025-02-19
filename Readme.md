@@ -16,7 +16,7 @@
 <h2 id="layout">🎨 Layout</h2>
 
 <p align="center">
-  <img src="https://i.imgur.com/phMpLfU.jpg" alt="Urban Oasis Image 1" width="400px">
+  <img src="https://i.imgur.com/A2IL2tH.jpg" alt="Urban Oasis Image 1" width="400px">
   <img src="https://i.imgur.com/cW8Fs6l.jpg" alt="Urban Oasis Image 2" width="400px">
 </p>
 

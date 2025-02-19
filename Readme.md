@@ -16,9 +16,8 @@
 <h2 id="layout">🎨 Layout</h2>
 
 <p align="center">
-
-<img src="https://imgur.com/a/phMpLfU" alt="Random Image" width="400px">
-<img src="https://imgur.com/cW8Fs6l" alt="Random Image" width="400px">
+  <img src="https://i.imgur.com/phMpLfU.jpg" alt="Urban Oasis Image 1" width="400px">
+  <img src="https://i.imgur.com/cW8Fs6l.jpg" alt="Urban Oasis Image 2" width="400px">
 </p>
 
 <h2 id="technologies">💻 Technologies</h2>

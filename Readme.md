@@ -53,10 +53,8 @@
 
 - Expo (for Testing & Debugging) - Simplifies development and deployment in React Native.
 - Metro Bundler (React Native Dev Server) - Manages bundling and hot reloading.
-- ESLint & Prettier (if configured) - Code linting and formatting for best practices.
+- ESLint & Prettier- Code linting and formatting for best practices.
 - Global CSS (./global.css) - Used for theming a web version.
-
-<h3>Starting</h3>
 
 ### **🚀 Installation Guide for Urban Oasis Development**
 

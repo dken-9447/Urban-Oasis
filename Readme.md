@@ -13,7 +13,16 @@
 <a href="https://github.com/dken-9447/Urban-Oasis">📱 View this project</a>
 </p>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/OPue46RUvJ0?si=qO7jFLToUlu7xE3_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<center>
+ <iframe width="560" 
+         height="315" 
+         src="https://youtu.be/OPue46RUvJ0" 
+         title="YouTube video player" 
+         frameborder="0" 
+         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+         allowfullscreen>
+ </iframe>
+</center>
 
 <h2 id="layout">🎨 Layout</h2>
 

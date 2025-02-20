@@ -13,16 +13,7 @@
 <a href="https://github.com/dken-9447/Urban-Oasis">📱 View this project</a>
 </p>
 
-<center>
- <iframe width="560" 
-         height="315" 
-         src="https://youtu.be/OPue46RUvJ0" 
-         title="YouTube video player" 
-         frameborder="0" 
-         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-         allowfullscreen>
- </iframe>
-</center>
+[![Urban Oasis](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2FOPue46RUvJ0)](https://youtu.be/OPue46RUvJ0)
 
 <h2 id="layout">🎨 Layout</h2>
 

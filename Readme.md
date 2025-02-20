@@ -4,6 +4,7 @@
 <a href="#layout">Layout</a>
 <a href="#technologies">Technologies</a>
 <a href="https://www.figma.com/proto/BcspAt5QTp8BAecoJmAJO4/UrbanOasis?node-id=351-8056">Figma Wireframe</a>
+
 </p>
 
 <p align="center">The purpose of the Urban Oasis App is to create an app aimed at helping people in Orange County make healthier eating decisions. The app will provide users with the ability to find produce stores near them that sell healthy food options. Users will also be able to search through healthy recipes, view price estimates to determine their budget, and locate nearby stores that sell the ingredients they need.</p>
@@ -11,6 +12,8 @@
 <p align="center">
 <a href="https://github.com/dken-9447/Urban-Oasis">📱 View this project</a>
 </p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OPue46RUvJ0?si=qO7jFLToUlu7xE3_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 <h2 id="layout">🎨 Layout</h2>
 

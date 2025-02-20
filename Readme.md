@@ -13,7 +13,9 @@
 <a href="https://github.com/dken-9447/Urban-Oasis">📱 View this project</a>
 </p>
 
-[![Urban Oasis](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2FOPue46RUvJ0)](https://youtu.be/OPue46RUvJ0)
+<p align="center">
+[![Urban Oasis](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2FOPue46RUvJ0)](https://youtu.be/OPue46RUvJ0)    
+</p>
 
 <h2 id="layout">🎨 Layout</h2>
 

@@ -109,13 +109,13 @@ export const HomeScreen = ({ navigation }) => {
                 <IconButton
                     icon="basket-outline"
                     size={28}
-                    onPress={() => navigation.navigate("Home")}
+                    onPress={() => console.log("Basket-outline has been pressed")}
                     iconColor="white"
                 />
                 <IconButton
                     icon="home-outline"
                     size={28}
-                    onPress={() => console.log("Home icon has been pressed")}
+                    onPress={() => navigation.navigate("Home")}
                     iconColor="white"
                 />
                 <IconButton

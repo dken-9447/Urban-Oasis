@@ -15,7 +15,7 @@ import { Image } from "react-native";
 import { IconButton } from "react-native-paper";
 import { useState } from "react";
 
-export const HomeScreen = () => {
+export const HomeScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
 
     return (
@@ -109,7 +109,7 @@ export const HomeScreen = () => {
                 <IconButton
                     icon="basket-outline"
                     size={28}
-                    onPress={() => console.log("Basket icon has been pressed")}
+                    onPress={() => navigation.navigate("Home")}
                     iconColor="white"
                 />
                 <IconButton
@@ -121,7 +121,7 @@ export const HomeScreen = () => {
                 <IconButton
                     icon="silverware-fork-knife"
                     size={28}
-                    onPress={() => console.log("Utensils icon has been pressed")}
+                    onPress={() => navigation.navigate("Foods")}
                     iconColor="white"
                 />
             </View>

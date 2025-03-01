@@ -2,6 +2,7 @@ import React from "react";
 import { HomeScreen } from "./src/features/restaurants/screens/home.screen";
 import { FoodsScreen } from "./src/features/restaurants/screens/foods.screens";
 import { NavigationContainer } from "@react-navigation/native";
+import { MapScreen } from "./src/features/restaurants/screens/map.screen";
 import "./global.css";
 import "./gesture-handler";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -14,6 +15,7 @@ export default function App() {
             <Stack.Navigator screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="Foods" component={FoodsScreen} />
+                <Stack.Screen name="Maps" component={MapScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

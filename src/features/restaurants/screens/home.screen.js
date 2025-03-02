@@ -12,8 +12,10 @@ import {
 import { TextInput, IconButton } from "react-native-paper";
 import { Image } from "react-native";
 import * as Location from "expo-location";
-import Constants from "expo-constants";
 import { useNavigation } from "@react-navigation/native";
+import { GOOGLE_PLACES_API_KEY } from "@env";
+
+const API_KEY = GOOGLE_PLACES_API_KEY;
 
 export const HomeScreen = () => {
     const [address, setAddress] = useState("");
@@ -21,7 +23,6 @@ export const HomeScreen = () => {
 
     // Fetch latitude & longitude from Google Maps Geocoding API
     const fetchCoordinatesFromAddress = async (searchQuery) => {
-        const API_KEY = Constants.expoConfig.extra.googlePlacesApiKey;
         const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(searchQuery)}&key=${API_KEY}`;
 
         try {

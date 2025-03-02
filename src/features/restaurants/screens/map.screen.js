@@ -6,6 +6,9 @@ import Constants from "expo-constants";
 import { IconButton } from "react-native-paper";
 import { Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { GOOGLE_PLACES_API_KEY } from "@env";
+
+const API_KEY = GOOGLE_PLACES_API_KEY;
 
 export const MapScreen = ({ route }) => {
     const navigation = useNavigation();
@@ -33,7 +36,6 @@ export const MapScreen = ({ route }) => {
     }, [coordinates]);
 
     const fetchNearbyFoodStores = async (lat, lon) => {
-        const API_KEY = Constants.expoConfig.extra.googlePlacesApiKey;
         const radius = 5000;
         const type = "grocery_or_supermarket";
 

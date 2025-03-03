@@ -1,6 +1,7 @@
 import React from "react";
 import { HomeScreen } from "./src/features/restaurants/screens/home.screen";
-import { FoodsScreen } from "./src/features/restaurants/screens/foods.screens";
+import { RecipeListScreen } from "./src/features/restaurants/screens/recipeList.screen";
+import { RecipeDetailScreen } from "./src/features/restaurants/screens/recipeDetail.screen";
 import { NavigationContainer } from "@react-navigation/native";
 import { MapScreen } from "./src/features/restaurants/screens/map.screen";
 import "./global.css";
@@ -14,7 +15,8 @@ export default function App() {
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="Foods" component={FoodsScreen} />
+                <Stack.Screen name="RecipeList" component={RecipeListScreen} />
+                <Stack.Screen name="RecipeDetail" component={RecipeDetailScreen} />
                 <Stack.Screen name="Maps" component={MapScreen} />
             </Stack.Navigator>
         </NavigationContainer>

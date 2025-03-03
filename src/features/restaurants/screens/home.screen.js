@@ -161,7 +161,7 @@ export const HomeScreen = () => {
                         icon="silverware-fork-knife"
                         size={28}
                         iconColor="white"
-                        onPress={() => navigation.navigate("Foods")}
+                        onPress={() => navigation.navigate("RecipeList")}
                     />
                 </View>
             </SafeAreaView>

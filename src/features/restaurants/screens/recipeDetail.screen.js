@@ -6,12 +6,14 @@ import {
   Text,
   View,
   Image,
+  ScrollView,
 } from "react-native";
-import { IconButton } from "react-native-paper";
+import { IconButton, Button } from "react-native-paper";
+import { recipeDetail, ingredients, directions } from "../components/data.js";
 
 
-
-export const RecipeDetailScreen = ({ navigation }) => {
+export const RecipeDetailScreen = ({ navigation, route }) => {
+  const {recipeId} = route.params;
   return (
     <SafeAreaView style={styles.container}>
       {/* Top Navigation Bar */}
@@ -23,11 +25,73 @@ export const RecipeDetailScreen = ({ navigation }) => {
       </View>
 
 
+
       {/* Main Content */}
       <View className="z-0">
-        <Text>This is the recipe details page!</Text>
-        <Text onPress={() => navigation.navigate("RecipeList")}>Return to Recipes</Text>
+      
+        <Text className="max-w-[400px] font-bold text-[#467e53] font-serif text-lg p-4">{recipeDetail.map(item => (item.name))}</Text>
+        <ScrollView> 
+        <View className="bg-[#467e53] items-center p-1">
+          {recipeDetail.map(item => (
+            <Image source={{ uri: (item.image) }} style={styles.recipeDetailImage} />
+          ))}        
+        </View>
+
+    
+        <View className="p-4 mb-5">
+        <Text className="text-[#467e53] pr-4 font-bold">{recipeDetail.map(item => (item.category))} ({recipeDetail.map(item => (item.rating))})</Text>
+          <Text className = "text-[#467e53] font-serif text-md">{recipeDetail.map(item => (item.summary))}</Text>
+
+          <View className="flex flex-row align-center justify-center mt-6">
+            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Prep Time:{"\n"}{recipeDetail.map(item => (item.prepTime))}</Text>
+            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Cook Time:{"\n"}{recipeDetail.map(item => (item.cookTime))}</Text>
+            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Total Time:{"\n"}{recipeDetail.map(item => (item.totalTime))}</Text>
+          </View>
+
+          <View className="flex flex-row align-center justify-center mb-6 mt-4">
+            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Servings:{"\n"}{recipeDetail.map(item => (item.servings))}</Text>
+            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Est. Cost:{"\n"}{recipeDetail.map(item => (item.cost))}</Text>
+          </View>
+
+          <Text className="text-[#467e53] text-lg font-bold mb-1">
+            Ingredients:
+          </Text>
+
+          <View>
+            { ingredients.map((item) => (
+            <Text className = "text-[#467e53] font-serif text-md mb-1">
+            {item.ingredient} (${item.cost})
+          </Text>
+            ))}
+          </View>
+
+          <Text className="text-[#467e53] text-lg font-bold mb-1 mt-5">
+            Directions:
+          </Text>
+          <View className="mb-5">
+            { directions.map((item) => (
+             <Text className = "text-[#467e53] font-serif text-md mb-2">
+              {item.id}. {item.direction} 
+             </Text>
+            ))}
+          </View>
+
+          <Button icon="magnify" mode="contained" buttonColor="#467e53" onPress={() => console.log("Reciple locate store button pressed.")}>
+            Locate Store
+          </Button>
+
+          <Text className="text-[#467e53] text-lg font-bold mb-1 mt-5">Nutrition:</Text>
+          <View className="flex flex-row align-center justify-center mb-[250px]">
+            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Calories:{"\n"}{recipeDetail.map(item => (item.calories))}</Text>
+            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Fat:{"\n"}{recipeDetail.map(item => (item.fat))} grams</Text>
+            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Carbs:{"\n"}{recipeDetail.map(item => (item.carbs))} grams</Text>
+            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Protein:{"\n"}{recipeDetail.map(item => (item.protein))} grams</Text>
+          </View>
+
+        </View>
+        </ScrollView>  
       </View>
+
 
 
       {/* Bottom Navigation */}
@@ -94,6 +158,11 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 10
+  },
+  recipeDetailImage: {
+    width: 400,
+    height: 225,
+    borderRadius: 10,
   },
   recipeSearch: {
     flex: 1,

@@ -203,6 +203,12 @@ This will install all required libraries and packages based on the `package.json
 
 Now that everything is installed, you can start the project.
 
+⚠️3/10/2025 Note: Before running the application make sure to update your packages and dependencies using:
+
+```sh
+npm install
+```
+
 ### **✅ Step 7: Start the Expo Project**
 
 ```sh

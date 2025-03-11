@@ -9,7 +9,11 @@ import {
   ScrollView,
 } from "react-native";
 import { IconButton, Button } from "react-native-paper";
+
 import { getRecipeDetail, getIngredients, getDirections } from "../components/data";
+
+import { recipeDetail, ingredients, directions, pricing } from "../components/data.js";
+
 
 export const RecipeDetailScreen = ({ navigation, route }) => {
   const { recipeId } = route.params;
@@ -82,6 +86,7 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
             {recipeDetail.Title || "Untitled Recipe"}
           </Text>
 
+
           <View style={styles.imageContainer}>
             <Image
               source={{
@@ -89,6 +94,14 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
               }}
               style={styles.recipeDetailImage}
             />
+
+          <View>
+            { ingredients.map((item) => (
+            <Text className = "text-[#467e53] font-serif text-md mb-1">
+            {item.ingredient}
+          </Text>
+            ))}
+
           </View>
 
           <View style={styles.content}>
@@ -98,6 +111,7 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
             <Text style={styles.summary}>
               {recipeDetail.Description || "No description available."}
             </Text>
+
 
             <View style={styles.infoRow}>
               <Text style={styles.infoText}>
@@ -111,6 +125,35 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
             <Text style={styles.infoText}>
               Calories: {recipeDetail["Calories (grams)"]} g
             </Text>
+
+          <Text className="text-[#467e53] text-lg font-bold mb-1 mt-5">
+            Notes:
+          </Text>
+          <Text className="text-[#467e53] font-serif text-md mb-5">{recipeDetail.map(item => (item.notes))}</Text>
+
+          <Button icon="magnify" mode="contained" buttonColor="#467e53" onPress={() => console.log("Reciple locate store button pressed.")}>
+            Locate Store
+          </Button>
+
+          <Text className="text-[#467e53] text-lg font-bold mb-1 mt-5">Nutrition:</Text>
+          <View className="flex flex-row align-center justify-center">
+            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Calories:{"\n"}{recipeDetail.map(item => (item.calories))}</Text>
+            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Fat:{"\n"}{recipeDetail.map(item => (item.fat))} grams</Text>
+            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Carbs:{"\n"}{recipeDetail.map(item => (item.carbs))} grams</Text>
+            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center mb-5">Protein:{"\n"}{recipeDetail.map(item => (item.protein))} grams</Text>
+          </View>
+
+          <Text className="text-[#467e53] text-lg font-bold mb-1">
+            Pricing Guide:
+          </Text>
+          <View className="mb-[200px]">
+            { pricing.map((item) => (
+            <Text className = "text-[#467e53] font-serif text-md mb-1">
+            {item.ingredient} (${item.cost})
+          </Text>
+            ))}
+          </View>
+
 
             <Text style={styles.sectionHeader}>Ingredients:</Text>
             {ingredientEntries.length > 0 ? (

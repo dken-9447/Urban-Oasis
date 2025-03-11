@@ -22,12 +22,37 @@ const firebaseConfig = {
   measurementId: "put me here"
 };
 
+
 // 1) Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // 2) Optional: Initialize Analytics (only works in certain environments)
 const analytics = getAnalytics(app);
 // 3) Get Firestore reference
 const db = getFirestore(app);
+
+
+  export const recipeDetail = [
+    { 
+        id: 1, 
+        name: "Blackened Shrimp Tacos with Pineapple",
+        category: "Mexican",
+        rating: "Easy",
+        time: "1 hour",
+        image: "https://www.allrecipes.com/thmb/uWgYL40zm5CUQFv8BY4jK8PpKN0=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/8629864_Blackened-Shrimp-and-Pineapple-Tacos_Maura-Rawlette_4x3-6d6cff4dfbb54e958b7577db16ab8311.jpg", 
+        summary: "These blackened shrimp tacos with pineapple are bright and summery.  Add sour cream if you want to cool them down a touch.",
+        cost: "$15",
+        prepTime: "10 minutes",
+        cookTime: "15 minutes",
+        totalTime: "25 minutes",
+        servings: "3",
+        calories: "250",
+        fat: "15",
+        carbs: "40",
+        protein: "175",
+        notes: "To heat tortillas effectively, consider using a skillet or comal for a traditional approach, a microwave with a damp cloth or paper towel for a quick fix, or an oven for larger batches or to keep them soft.",
+    },
+];
+
 
 /**
  * Fetch all recipes from Firestore and map them
@@ -51,6 +76,7 @@ export async function getRecipeList() {
 
   return recipeList;
 }
+
 
 /**
  * Get a single recipe document by ID.
@@ -100,3 +126,76 @@ export async function getDirections(recipeId) {
   });
   return directionsArray;
 }
+
+export const pricing = [
+    {
+        id: 1,
+        ingredient: "Smoked paprika",
+        cost: "1.59",
+    },
+    {
+        id: 2,
+        ingredient: "Onion powder",
+        cost: "1.75",
+    },
+    {
+        id: 3,
+        ingredient: "Dried oregano",
+        cost: "1.25",
+    },
+    {
+        id: 4,
+        ingredient: "Cayenne pepper",
+        cost: "2.25",
+    },
+    {
+        id: 5,
+        ingredient: "Garlic salt",
+        cost: "0.75",
+    },
+    {
+        id: 6,
+        ingredient: "Ground black pepper",
+        cost: "1.35",
+    },
+    {
+        id: 7,
+        ingredient: "Fresh pineapple",
+        cost: "2.50",
+    },
+    {
+        id: 8,
+        ingredient: "Chopped red onions",
+        cost: "0.65",
+    },
+    {
+        id: 9,
+        ingredient: "Chopped cilantro",
+        cost: "0.20",
+    },
+    {
+        id: 10,
+        ingredient: "Lime",
+        cost: "0.45",
+    },
+    {
+        id: 11,
+        ingredient: "Salt",
+        cost: "0.75",
+    },
+    {
+        id: 12,
+        ingredient: "Large shrimp (1 pound)",
+        cost: "12.95",
+    },
+    {
+        id: 13,
+        ingredient: "Butter",
+        cost: "3.30",
+    },
+    {
+        id: 14,
+        ingredient: "Flour tortillas (6-6i inch)",
+        cost: "4.00",
+    },
+];

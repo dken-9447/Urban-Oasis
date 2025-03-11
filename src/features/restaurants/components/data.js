@@ -116,6 +116,7 @@ export const recipeList = [
         fat: "15",
         carbs: "40",
         protein: "175",
+        notes: "To heat tortillas effectively, consider using a skillet or comal for a traditional approach, a microwave with a damp cloth or paper towel for a quick fix, or an oven for larger batches or to keep them soft.",
     },
 ];
 
@@ -224,6 +225,80 @@ export const directions = [
     {
         id: 8,
         direction: "Place shrimp on each tortilla and top with pineapple mixture.",
+    },
+];
+
+
+export const pricing = [
+    {
+        id: 1,
+        ingredient: "Smoked paprika",
+        cost: "1.59",
+    },
+    {
+        id: 2,
+        ingredient: "Onion powder",
+        cost: "1.75",
+    },
+    {
+        id: 3,
+        ingredient: "Dried oregano",
+        cost: "1.25",
+    },
+    {
+        id: 4,
+        ingredient: "Cayenne pepper",
+        cost: "2.25",
+    },
+    {
+        id: 5,
+        ingredient: "Garlic salt",
+        cost: "0.75",
+    },
+    {
+        id: 6,
+        ingredient: "Ground black pepper",
+        cost: "1.35",
+    },
+    {
+        id: 7,
+        ingredient: "Fresh pineapple",
+        cost: "2.50",
+    },
+    {
+        id: 8,
+        ingredient: "Chopped red onions",
+        cost: "0.65",
+    },
+    {
+        id: 9,
+        ingredient: "Chopped cilantro",
+        cost: "0.20",
+    },
+    {
+        id: 10,
+        ingredient: "Lime",
+        cost: "0.45",
+    },
+    {
+        id: 11,
+        ingredient: "Salt",
+        cost: "0.75",
+    },
+    {
+        id: 12,
+        ingredient: "Large shrimp (1 pound)",
+        cost: "12.95",
+    },
+    {
+        id: 13,
+        ingredient: "Butter",
+        cost: "3.30",
+    },
+    {
+        id: 14,
+        ingredient: "Flour tortillas (6-6i inch)",
+        cost: "4.00",
     },
 ];
 

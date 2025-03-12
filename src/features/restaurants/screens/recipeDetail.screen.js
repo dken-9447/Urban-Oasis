@@ -137,7 +137,7 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
                     icon="basket-outline"
                     size={28}
                     iconColor="white"
-                    onPress={() => console.log("Basket-outline pressed")}
+                    onPress={() => navigation.navigate("StoresListScreen")}
                 />
                 <IconButton
                     icon="home-outline"

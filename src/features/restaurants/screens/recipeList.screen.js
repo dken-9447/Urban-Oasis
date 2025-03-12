@@ -1,230 +1,168 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
-  StatusBar,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Pressable,
-  ScrollView,
+    StatusBar,
+    SafeAreaView,
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    Pressable,
+    ScrollView
 } from "react-native";
 import { TextInput, IconButton } from "react-native-paper";
-// Import the updated function from data.js
-import { getRecipeList } from "../components/data";
+import { recipeList } from "../components/data.js";
 
 export const RecipeListScreen = ({ navigation }) => {
-  // Local state to store recipes from Firestore
-  const [recipeList, setRecipeList] = useState([]);
+    return (
+        <SafeAreaView style={styles.container}>
+            {/* Top Navigation Bar */}
+            <View style={styles.topBar}>
+                <Image
+                    source={require("../../../../assets/urban-oasis-text-only.png")}
+                    style={styles.logo}
+                />
+            </View>
 
-  // Fetch recipes when the component mounts
-  useEffect(() => {
-    getRecipeList().then((data) => {
-      setRecipeList(data);
-    });
-  }, []);
-
-  return (
-    <SafeAreaView style={styles.container}>
-      {/* Top Navigation Bar */}
-      <View style={styles.topBar}>
-        <Image
-          source={require("../../../../assets/urban-oasis-text-only.png")}
-          style={styles.logo}
-        />
-      </View>
-
-      {/* Main Content */}
-      <View style={styles.mainContent}>
-        {/* Search Bar */}
-        <View style={styles.searchRow}>
-          <View style={styles.searchContainer}>
-            <TextInput
-              placeholder="Search recipes"
-              placeholderTextColor="#467e53"
-              mode="flat"
-              underlineColor="transparent"
-              activeUnderlineColor="transparent"
-              keyboardType="default"
-              cursorColor="#467e53"
-              style={styles.recipeSearch}
-              editable={true}
-            />
-            <IconButton
-              icon="magnify"
-              size={25}
-              iconColor="#467e53"
-              onPress={() => console.log("Recipe-search pressed")}
-            />
-          </View>
-          <View style={styles.filterButton}>
-            <IconButton
-              icon="filter-outline"
-              size={45}
-              iconColor="#467e53"
-              onPress={() => console.log("Recipe-filter pressed")}
-            />
-          </View>
-        </View>
-
-        <Text style={styles.headerText}>Recipes</Text>
-
-        <ScrollView>
-          {recipeList.map((item) => (
-            <Pressable
-              key={item.id}
-              onPress={() =>
-                navigation.navigate("RecipeDetail", { recipeId: item.id })
-              }
-            >
-              <View style={styles.item}>
-                <View style={styles.itemRow}>
-                  <View style={styles.imageContainer}>
-                    <Image
-                      source={{ uri: item.image }}
-                      style={styles.recipeThumbImage}
-                    />
-                  </View>
-                  <View style={styles.itemContent}>
-                    <Text style={styles.itemTitle}>{item.name}</Text>
-                    <View style={styles.itemDetails}>
-                      <Text style={styles.detailText}>{item.category}</Text>
-                      <Text style={styles.detailText}>{item.rating}</Text>
-                      <Text style={styles.detailText}>{item.time}</Text>
+            {/* Main Content */}
+            <View className="z-0 border-2 border-solid p-4 mb-2">
+                {/* Search Bar */}
+                <View className="flex-row mb-5">
+                    <View className="flex-row w-3/4 border-sold border-2 border-[#467e53] rounded-2xl px-4 py-2 mr-7">
+                        <TextInput
+                            placeholder="Search recipes"
+                            placeholderTextColor="#467e53"
+                            mode="flat"
+                            underlineColor="transparent"
+                            activeUnderlineColor="transparent"
+                            keyboardType="default"
+                            cursorColor="#467e53"
+                            style={styles.recipeSearch}
+                            editable={true}
+                        />
+                        <IconButton
+                            icon="magnify"
+                            size={25}
+                            iconColor="#467e53"
+                            onPress={() => console.log("Recipe-search pressed")}
+                        />
                     </View>
-                  </View>
+                    <View className="content-right">
+                        <IconButton
+                            icon="filter-outline"
+                            size={45}
+                            iconColor="#467e53"
+                            onPress={() => console.log("Recipe-filter pressed")}
+                        />
+                    </View>
                 </View>
-              </View>
-            </Pressable>
-          ))}
-        </ScrollView>
-      </View>
 
-      {/* Bottom Navigation */}
-      <View style={styles.bottomBar}>
-        <IconButton
-          icon="basket-outline"
-          size={28}
-          iconColor="white"
-          onPress={() => console.log("Basket-outline pressed")}
-        />
-        <IconButton
-          icon="home-outline"
-          size={28}
-          iconColor="white"
-          onPress={() => navigation.navigate("Home")}
-        />
-        <IconButton
-          icon="silverware-fork-knife"
-          size={28}
-          iconColor="white"
-          onPress={() => navigation.navigate("RecipeList")}
-        />
-      </View>
-    </SafeAreaView>
-  );
+                <Text className="text-3xl font-serif font-bold text-[#467e53] mb-2">Recipes</Text>
+
+                <ScrollView>
+                    {recipeList.map((item) => (
+                        <Pressable
+                            onPress={() =>
+                                navigation.navigate("RecipeDetail", { recipeId: item.id })
+                            }>
+                            <View style={styles.item}>
+                                <View className="flex flex-row">
+                                    <View className="mr-3">
+                                        <Image
+                                            source={{ uri: item.image }}
+                                            style={styles.recipeThumbImage}
+                                        />
+                                    </View>
+                                    <View className="mt-1">
+                                        <Text className="mb-2 max-w-[250px] font-bold text-[#467e53] font-serif text-lg">
+                                            {item.name}
+                                        </Text>
+                                        <View className="flex flex-row align-center font-semibold">
+                                            <Text className="mr-6 text-[#467e53]">
+                                                {item.category}
+                                            </Text>
+                                            <Text className="mr-6 text-[#467e53]">
+                                                {item.rating}
+                                            </Text>
+                                            <Text className="mr-6 text-[#467e53]">{item.time}</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                            </View>
+                        </Pressable>
+                    ))}
+                </ScrollView>
+            </View>
+
+            {/* Bottom Navigation */}
+            <View style={styles.bottomBar}>
+                <IconButton
+                    icon="basket-outline"
+                    size={28}
+                    iconColor="white"
+                    onPress={() => console.log("Basket-outline pressed")}
+                />
+                <IconButton
+                    icon="home-outline"
+                    size={28}
+                    iconColor="white"
+                    onPress={() => navigation.navigate("Home")}
+                />
+                <IconButton
+                    icon="silverware-fork-knife"
+                    size={28}
+                    iconColor="white"
+                    onPress={() => navigation.navigate("RecipeList")}
+                />
+            </View>
+        </SafeAreaView>
+    );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight,
-  },
-  topBar: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingVertical: 10,
-    backgroundColor: "#467e53",
-  },
-  logo: {
-    width: 150,
-    height: 40,
-    resizeMode: "contain",
-  },
-  mainContent: {
-    flex: 1,
-    padding: 16,
-    marginBottom: 60, // leave space for bottom navigation
-  },
-  searchRow: {
-    flexDirection: "row",
-    marginBottom: 20,
-  },
-  searchContainer: {
-    flexDirection: "row",
-    flex: 3,
-    borderWidth: 2,
-    borderColor: "#467e53",
-    borderRadius: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    marginRight: 10,
-  },
-  filterButton: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  recipeSearch: {
-    flex: 1,
-    backgroundColor: "transparent",
-    color: "#467e53",
-    fontSize: 14,
-  },
-  headerText: {
-    fontSize: 24,
-    fontFamily: "serif",
-    fontWeight: "bold",
-    color: "#467e53",
-    marginBottom: 12,
-  },
-  item: {
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "#467e53",
-    marginBottom: 10,
-    borderRadius: 10,
-  },
-  itemRow: {
-    flexDirection: "row",
-  },
-  imageContainer: {
-    marginRight: 10,
-  },
-  recipeThumbImage: {
-    width: 80,
-    height: 80,
-    borderRadius: 10,
-  },
-  itemContent: {
-    justifyContent: "center",
-  },
-  itemTitle: {
-    marginBottom: 6,
-    maxWidth: 250,
-    fontWeight: "bold",
-    color: "#467e53",
-    fontSize: 18,
-    fontFamily: "serif",
-  },
-  itemDetails: {
-    flexDirection: "row",
-  },
-  detailText: {
-    marginRight: 12,
-    color: "#467e53",
-    fontWeight: "600",
-  },
-  bottomBar: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    paddingVertical: 12,
-    backgroundColor: "#467e53",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
+    container: {
+        flex: 1,
+        marginTop: StatusBar.currentHeight
+    },
+    topBar: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        paddingVertical: 10,
+        backgroundColor: "#467e53"
+    },
+    logo: {
+        width: 150,
+        height: 40,
+        resizeMode: "contain"
+    },
+    bottomBar: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+        paddingVertical: 12,
+        backgroundColor: "#467e53",
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        right: 0
+    },
+    item: {
+        padding: 10,
+        borderWidth: 1,
+        borderColor: "#467e53",
+        marginBottom: 10,
+        borderRadius: 10
+    },
+    recipeThumbImage: {
+        width: 80,
+        height: 80,
+        borderRadius: 10
+    },
+    recipeSearch: {
+        flex: 1,
+        backgroundColor: "transparent",
+        color: "#467e53",
+        fontSize: 14,
+        height: 8
+    }
 });

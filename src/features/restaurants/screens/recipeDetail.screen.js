@@ -1,189 +1,311 @@
-import React from "react";
-import {
-  StatusBar,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { StatusBar, SafeAreaView, StyleSheet, Text, View, Image, ScrollView } from "react-native";
 import { IconButton, Button } from "react-native-paper";
+
+import { getRecipeDetail, getIngredients, getDirections } from "../components/data";
+
 import { recipeDetail, ingredients, directions, pricing } from "../components/data.js";
 
-
 export const RecipeDetailScreen = ({ navigation, route }) => {
-  const {recipeId} = route.params;
-  return (
-    <SafeAreaView style={styles.container}>
-      {/* Top Navigation Bar */}
-      <View style={styles.topBar}>
-        <Image
-          source={require("../../../../assets/urban-oasis-text-only.png")}
-          style={styles.logo}
-        />
-      </View>
+    const { recipeId } = route.params;
+    const [recipeDetail, setRecipeDetail] = useState(null);
+    const [ingredients, setIngredients] = useState([]);
+    const [directions, setDirections] = useState([]);
 
+    useEffect(() => {
+        console.log("Fetching recipe detail for ID:", recipeId);
+        getRecipeDetail(recipeId).then((data) => {
+            if (data) {
+                console.log("Fetched recipe detail:", data);
+                setRecipeDetail(data);
+            } else {
+                console.log("No recipe found for ID:", recipeId);
+            }
+        });
 
+        // Fetch ingredients (if stored as a subcollection)
+        getIngredients(recipeId).then((data) => {
+            console.log("Fetched ingredients:", data);
+            setIngredients(data);
+        });
 
-      {/* Main Content */}
-      <View className="z-0">
-      
-        <Text className="max-w-[400px] font-bold text-[#467e53] font-serif text-lg p-4">{recipeDetail.map(item => (item.name))}</Text>
-        <ScrollView> 
-        <View className="bg-[#467e53] items-center p-1">
-          {recipeDetail.map(item => (
-            <Image source={{ uri: (item.image) }} style={styles.recipeDetailImage} />
-          ))}        
-        </View>
+        // Fetch directions (if stored as a subcollection)
+        getDirections(recipeId).then((data) => {
+            console.log("Fetched directions:", data);
+            setDirections(data);
+        });
+    }, [recipeId]);
 
-    
-        <View className="p-4 mb-5">
-        <Text className="text-[#467e53] pr-4 font-bold">{recipeDetail.map(item => (item.category))} ({recipeDetail.map(item => (item.rating))})</Text>
-          <Text className = "text-[#467e53] font-serif text-md">{recipeDetail.map(item => (item.summary))}</Text>
+    if (!recipeDetail) {
+        console.log(`Still waiting for recipe detail with ID: ${recipeId}`);
+        return (
+            <SafeAreaView style={styles.container}>
+                <Text style={{ textAlign: "center", marginTop: 20 }}>
+                    Please check the console for fetch logs.
+                </Text>
+            </SafeAreaView>
+        );
+    }
 
-          <View className="flex flex-row align-center justify-center mt-6">
-            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Prep Time:{"\n"}{recipeDetail.map(item => (item.prepTime))}</Text>
-            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Cook Time:{"\n"}{recipeDetail.map(item => (item.cookTime))}</Text>
-            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Total Time:{"\n"}{recipeDetail.map(item => (item.totalTime))}</Text>
-          </View>
+    // For directions, if it's a string, split it into an array of steps.
+    const steps = recipeDetail.Directions
+        ? typeof recipeDetail.Directions === "string"
+            ? recipeDetail.Directions.split("\n")
+            : recipeDetail.Directions
+        : [];
 
-          <View className="flex flex-row align-center justify-center mb-6 mt-4">
-            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Servings:{"\n"}{recipeDetail.map(item => (item.servings))}</Text>
-            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Est. Cost:{"\n"}{recipeDetail.map(item => (item.cost))}</Text>
-          </View>
+    // If ingredients are stored as a map in the recipe document, you might convert them:
+    const ingredientEntries =
+        recipeDetail.Ingredients && typeof recipeDetail.Ingredients === "object"
+            ? Object.entries(recipeDetail.Ingredients)
+            : [];
 
-          <Text className="text-[#467e53] text-lg font-bold mb-1">
-            Ingredients:
-          </Text>
-          <View>
-            { ingredients.map((item) => (
-            <Text className = "text-[#467e53] font-serif text-md mb-1">
-            {item.ingredient}
-          </Text>
-            ))}
-          </View>
+    return (
+        <SafeAreaView style={styles.container}>
+            {/* Top Navigation Bar */}
+            <View style={styles.topBar}>
+                <Image
+                    source={require("../../../../assets/urban-oasis-text-only.png")}
+                    style={styles.logo}
+                />
+            </View>
 
-          <Text className="text-[#467e53] text-lg font-bold mb-1 mt-5">
-            Directions:
-          </Text>
-          <View className="mb-5">
-            { directions.map((item) => (
-             <Text className = "text-[#467e53] font-serif text-md mb-2">
-              {item.id}. {item.direction} 
-             </Text>
-            ))}
-          </View>
+            {/* Main Content */}
+            <View style={{ flex: 1 }}>
+                <ScrollView>
+                    <Text style={styles.recipeTitle}>
+                        {recipeDetail.Title || "Untitled Recipe"}
+                    </Text>
 
-          <Text className="text-[#467e53] text-lg font-bold mb-1 mt-5">
-            Notes:
-          </Text>
-          <Text className="text-[#467e53] font-serif text-md mb-5">{recipeDetail.map(item => (item.notes))}</Text>
+                    <View style={styles.imageContainer}>
+                        <Image
+                            source={{
+                                uri: recipeDetail.Image || "https://placehold.co/400"
+                            }}
+                            style={styles.recipeDetailImage}
+                        />
+                    </View>
+                    <View>
+                        {ingredients.map((item) => (
+                            <Text className="text-[#467e53] font-serif text-md mb-1">
+                                {item.ingredient}
+                            </Text>
+                        ))}
+                    </View>
 
-          <Button icon="magnify" mode="contained" buttonColor="#467e53" onPress={() => console.log("Reciple locate store button pressed.")}>
-            Locate Store
-          </Button>
+                    <View style={styles.content}>
+                        <Text style={styles.categoryRating}>
+                            {recipeDetail.Category} • {recipeDetail["Total Time"]}
+                        </Text>
+                        <Text style={styles.summary}>
+                            {recipeDetail.Description || "No description available."}
+                        </Text>
 
-          <Text className="text-[#467e53] text-lg font-bold mb-1 mt-5">Nutrition:</Text>
-          <View className="flex flex-row align-center justify-center">
-            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Calories:{"\n"}{recipeDetail.map(item => (item.calories))}</Text>
-            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Fat:{"\n"}{recipeDetail.map(item => (item.fat))} grams</Text>
-            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">Carbs:{"\n"}{recipeDetail.map(item => (item.carbs))} grams</Text>
-            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center mb-5">Protein:{"\n"}{recipeDetail.map(item => (item.protein))} grams</Text>
-          </View>
+                        <View style={styles.infoRow}>
+                            <Text style={styles.infoText}>Servings: {recipeDetail.Servings}</Text>
+                            <Text style={styles.infoText}>
+                                Cost: {recipeDetail["Estimated Total Cost"]}
+                            </Text>
+                        </View>
 
-          <Text className="text-[#467e53] text-lg font-bold mb-1">
-            Pricing Guide:
-          </Text>
-          <View className="mb-[200px]">
-            { pricing.map((item) => (
-            <Text className = "text-[#467e53] font-serif text-md mb-1">
-            {item.ingredient} (${item.cost})
-          </Text>
-            ))}
-          </View>
+                        <Text style={styles.infoText}>
+                            Calories: {recipeDetail["Calories (grams)"]} g
+                        </Text>
 
-        </View>
-        </ScrollView>  
-      </View>
+                        <Text className="text-[#467e53] text-lg font-bold mb-1 mt-5">Notes:</Text>
+                        <Text className="text-[#467e53] font-serif text-md mb-5">
+                            {recipeDetail.map((item) => item.notes)}
+                        </Text>
 
+                        <Button
+                            icon="magnify"
+                            mode="contained"
+                            buttonColor="#467e53"
+                            onPress={() => console.log("Reciple locate store button pressed.")}>
+                            Locate Store
+                        </Button>
 
+                        <Text className="text-[#467e53] text-lg font-bold mb-1 mt-5">
+                            Nutrition:
+                        </Text>
+                        <View className="flex flex-row align-center justify-center">
+                            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">
+                                Calories:{"\n"}
+                                {recipeDetail.map((item) => item.calories)}
+                            </Text>
+                            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">
+                                Fat:{"\n"}
+                                {recipeDetail.map((item) => item.fat)} grams
+                            </Text>
+                            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center">
+                                Carbs:{"\n"}
+                                {recipeDetail.map((item) => item.carbs)} grams
+                            </Text>
+                            <Text className="text-[#467e53] pr-4 pl-4 font-bold text-center mb-5">
+                                Protein:{"\n"}
+                                {recipeDetail.map((item) => item.protein)} grams
+                            </Text>
+                        </View>
 
-      {/* Bottom Navigation */}
-      <View style={styles.bottomBar}>
-        <IconButton
-          icon="basket-outline"
-          size={28}
-          iconColor="white"
-          onPress={() => console.log("Basket-outline pressed")}
-        />
-        <IconButton
-          icon="home-outline"
-          size={28}
-          iconColor="white"
-          onPress={() => navigation.navigate("Home")}
-        />
-        <IconButton
-          icon="silverware-fork-knife"
-          size={28}
-          iconColor="white"
-          onPress={() => navigation.navigate("RecipeList")}
-        />
-      </View>
-    </SafeAreaView>
-  );
+                        <Text className="text-[#467e53] text-lg font-bold mb-1">
+                            Pricing Guide:
+                        </Text>
+                        <View className="mb-[200px]">
+                            {pricing.map((item) => (
+                                <Text className="text-[#467e53] font-serif text-md mb-1">
+                                    {item.ingredient} (${item.cost})
+                                </Text>
+                            ))}
+                        </View>
+
+                        <Text style={styles.sectionHeader}>Ingredients:</Text>
+                        {ingredientEntries.length > 0 ? (
+                            ingredientEntries.map(([key, value]) => (
+                                <Text key={key} style={styles.ingredientText}>
+                                    {key}: {typeof value === "string" ? value : "Reference"}
+                                </Text>
+                            ))
+                        ) : (
+                            <Text style={styles.ingredientText}>No ingredients available.</Text>
+                        )}
+
+                        <Text style={styles.sectionHeader}>Directions:</Text>
+                        {steps.length > 0 ? (
+                            steps.map((step, index) => (
+                                <Text key={index} style={styles.directionsText}>
+                                    {index + 1}. {step}
+                                </Text>
+                            ))
+                        ) : (
+                            <Text style={styles.directionsText}>No directions available.</Text>
+                        )}
+
+                        <Button
+                            icon="magnify"
+                            mode="contained"
+                            buttonColor="#467e53"
+                            onPress={() => console.log("Locate store button pressed.")}>
+                            Locate Store
+                        </Button>
+
+                        <View style={{ marginBottom: 250 }} />
+                    </View>
+                </ScrollView>
+            </View>
+
+            {/* Bottom Navigation */}
+            <View style={styles.bottomBar}>
+                <IconButton
+                    icon="basket-outline"
+                    size={28}
+                    iconColor="white"
+                    onPress={() => console.log("Basket-outline pressed")}
+                />
+                <IconButton
+                    icon="home-outline"
+                    size={28}
+                    iconColor="white"
+                    onPress={() => navigation.navigate("Home")}
+                />
+                <IconButton
+                    icon="silverware-fork-knife"
+                    size={28}
+                    iconColor="white"
+                    onPress={() => navigation.navigate("RecipeList")}
+                />
+            </View>
+        </SafeAreaView>
+    );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight,
-  },
-  topBar: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingVertical: 10,
-    backgroundColor: "#467e53",
-  },
-  logo: {
-    width: 150,
-    height: 40,
-    resizeMode: "contain",
-  },
-  bottomBar: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    paddingVertical: 12,
-    backgroundColor: "#467e53",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
-  item: {
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "#467e53",
-    marginBottom: 10,
-    borderRadius: 10
-  },
-  recipeThumbImage: {
-    width: 80,
-    height: 80,
-    borderRadius: 10
-  },
-  recipeDetailImage: {
-    width: 400,
-    height: 225,
-    borderRadius: 10,
-  },
-  recipeSearch: {
-    flex: 1,
-    backgroundColor: "transparent",
-    color: "#467e53",
-    fontSize: 14,
-    height: 8,
-  }
+    container: {
+        flex: 1,
+        marginTop: StatusBar.currentHeight
+    },
+    topBar: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        paddingVertical: 10,
+        backgroundColor: "#467e53"
+    },
+    logo: {
+        width: 150,
+        height: 40,
+        resizeMode: "contain"
+    },
+    recipeTitle: {
+        fontWeight: "bold",
+        color: "#467e53",
+        fontFamily: "serif",
+        fontSize: 22,
+        padding: 8,
+        textAlign: "center"
+    },
+    imageContainer: {
+        backgroundColor: "#467e53",
+        alignItems: "center",
+        padding: 8
+    },
+    recipeDetailImage: {
+        width: 400,
+        height: 225,
+        borderRadius: 10
+    },
+    content: {
+        padding: 16
+    },
+    categoryRating: {
+        color: "#467e53",
+        fontWeight: "bold",
+        marginBottom: 6,
+        textAlign: "center"
+    },
+    summary: {
+        color: "#467e53",
+        fontFamily: "serif",
+        fontSize: 16,
+        marginBottom: 10,
+        textAlign: "center"
+    },
+    infoRow: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        marginVertical: 10
+    },
+    infoText: {
+        color: "#467e53",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+    sectionHeader: {
+        color: "#467e53",
+        fontSize: 18,
+        fontWeight: "bold",
+        marginVertical: 8
+    },
+    ingredientText: {
+        color: "#467e53",
+        fontFamily: "serif",
+        fontSize: 16,
+        marginBottom: 4
+    },
+    directionsText: {
+        color: "#467e53",
+        fontFamily: "serif",
+        fontSize: 16,
+        marginBottom: 6
+    },
+    bottomBar: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+        paddingVertical: 12,
+        backgroundColor: "#467e53",
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        right: 0
+    }
 });

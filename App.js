@@ -19,7 +19,7 @@ export default function App() {
                 <Stack.Screen name="RecipeList" component={RecipeListScreen} />
                 <Stack.Screen name="RecipeDetail" component={RecipeDetailScreen} />
                 <Stack.Screen name="Maps" component={MapScreen} />
-                <Stack.Screen name="StoreListScreen" component={StoreListScreen} />
+                <Stack.Screen name="StoresListScreen" component={StoreListScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

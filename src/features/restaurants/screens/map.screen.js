@@ -145,7 +145,7 @@ export const MapScreen = ({ route }) => {
                     icon="basket-outline"
                     size={28}
                     iconColor="white"
-                    onPress={() => navigation.navigate("StoreListScreen")}
+                    onPress={() => navigation.navigate("StoresListScreen")}
                 />
                 <IconButton
                     icon="home-outline"

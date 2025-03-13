@@ -24,6 +24,8 @@ export const RecipeListScreen = ({ navigation }) => {
     });
   }, []);
 
+
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Top Navigation Bar */}
@@ -71,6 +73,7 @@ export const RecipeListScreen = ({ navigation }) => {
 
         <ScrollView>
           {recipeList.map((item) => (
+            console.log("Recipe item:", item.name, item.imageUrl),
             <Pressable
               key={item.id}
               onPress={() =>
@@ -80,10 +83,15 @@ export const RecipeListScreen = ({ navigation }) => {
               <View style={styles.item}>
                 <View style={styles.itemRow}>
                   <View style={styles.imageContainer}>
-                    <Image
-                      source={{ uri: item.image }}
-                      style={styles.recipeThumbImage}
-                    />
+                  <Image
+                    source={{ uri: item.imageUrl || "https://placehold.co/400" }}
+                    style={styles.recipeThumbImage}
+                    
+                  />
+                  
+
+                
+                  
                   </View>
                   <View style={styles.itemContent}>
                     <Text style={styles.itemTitle}>{item.name}</Text>

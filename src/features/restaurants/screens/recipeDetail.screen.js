@@ -59,7 +59,7 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
       : recipeDetail.Directions
     : [];
 
-  // If ingredients are stored as a map in the recipe document, you might convert them:
+  // If ingredients are stored as a map in the recipe document, convert them.
   const ingredientEntries =
     recipeDetail.Ingredients && typeof recipeDetail.Ingredients === "object"
       ? Object.entries(recipeDetail.Ingredients)
@@ -85,7 +85,7 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
           <View style={styles.imageContainer}>
             <Image
               source={{
-                uri: recipeDetail.Image || "https://placehold.co/400",
+                uri: recipeDetail.imageUrl || "https://placehold.co/400",
               }}
               style={styles.recipeDetailImage}
             />
@@ -178,93 +178,19 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight,
-  },
-  topBar: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingVertical: 10,
-    backgroundColor: "#467e53",
-  },
-  logo: {
-    width: 150,
-    height: 40,
-    resizeMode: "contain",
-  },
-  recipeTitle: {
-    fontWeight: "bold",
-    color: "#467e53",
-    fontFamily: "serif",
-    fontSize: 22,
-    padding: 8,
-    textAlign: "center",
-  },
-  imageContainer: {
-    backgroundColor: "#467e53",
-    alignItems: "center",
-    padding: 8,
-  },
-  recipeDetailImage: {
-    width: 400,
-    height: 225,
-    borderRadius: 10,
-  },
-  content: {
-    padding: 16,
-  },
-  categoryRating: {
-    color: "#467e53",
-    fontWeight: "bold",
-    marginBottom: 6,
-    textAlign: "center",
-  },
-  summary: {
-    color: "#467e53",
-    fontFamily: "serif",
-    fontSize: 16,
-    marginBottom: 10,
-    textAlign: "center",
-  },
-  infoRow: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginVertical: 10,
-  },
-  infoText: {
-    color: "#467e53",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  sectionHeader: {
-    color: "#467e53",
-    fontSize: 18,
-    fontWeight: "bold",
-    marginVertical: 8,
-  },
-  ingredientText: {
-    color: "#467e53",
-    fontFamily: "serif",
-    fontSize: 16,
-    marginBottom: 4,
-  },
-  directionsText: {
-    color: "#467e53",
-    fontFamily: "serif",
-    fontSize: 16,
-    marginBottom: 6,
-  },
-  bottomBar: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    paddingVertical: 12,
-    backgroundColor: "#467e53",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
+  container: { flex: 1, marginTop: StatusBar.currentHeight },
+  topBar: { flexDirection: "row", justifyContent: "center", alignItems: "center", paddingVertical: 10, backgroundColor: "#467e53" },
+  logo: { width: 150, height: 40, resizeMode: "contain" },
+  recipeTitle: { fontWeight: "bold", color: "#467e53", fontFamily: "serif", fontSize: 22, padding: 8, textAlign: "center" },
+  imageContainer: { backgroundColor: "#467e53", alignItems: "center", padding: 8 },
+  recipeDetailImage: { width: 400, height: 225, borderRadius: 10 },
+  content: { padding: 16 },
+  categoryRating: { color: "#467e53", fontWeight: "bold", marginBottom: 6, textAlign: "center" },
+  summary: { color: "#467e53", fontFamily: "serif", fontSize: 16, marginBottom: 10, textAlign: "center" },
+  infoRow: { flexDirection: "row", justifyContent: "space-around", marginVertical: 10 },
+  infoText: { color: "#467e53", fontWeight: "bold", textAlign: "center" },
+  sectionHeader: { color: "#467e53", fontSize: 18, fontWeight: "bold", marginVertical: 8 },
+  ingredientText: { color: "#467e53", fontFamily: "serif", fontSize: 16, marginBottom: 4 },
+  directionsText: { color: "#467e53", fontFamily: "serif", fontSize: 16, marginBottom: 6 },
+  bottomBar: { flexDirection: "row", justifyContent: "space-around", alignItems: "center", paddingVertical: 12, backgroundColor: "#467e53", position: "absolute", bottom: 0, left: 0, right: 0 },
 });

@@ -10,11 +10,9 @@ import {
   ScrollView,
 } from "react-native";
 import { TextInput, IconButton } from "react-native-paper";
-// Import the updated function from data.js
 import { getRecipeList } from "../components/data";
 
 export const RecipeListScreen = ({ navigation }) => {
-  // Local state to store recipes from Firestore
   const [recipeList, setRecipeList] = useState([]);
 
   // Fetch recipes when the component mounts
@@ -24,7 +22,12 @@ export const RecipeListScreen = ({ navigation }) => {
     });
   }, []);
 
-
+  // Log each recipe's title and imageUrl for debugging
+  useEffect(() => {
+    recipeList.forEach(item => {
+      console.log("Recipe item:", item.title, item.imageUrl);
+    });
+  }, [recipeList]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -73,7 +76,6 @@ export const RecipeListScreen = ({ navigation }) => {
 
         <ScrollView>
           {recipeList.map((item) => (
-            console.log("Recipe item:", item.name, item.imageUrl),
             <Pressable
               key={item.id}
               onPress={() =>
@@ -83,22 +85,17 @@ export const RecipeListScreen = ({ navigation }) => {
               <View style={styles.item}>
                 <View style={styles.itemRow}>
                   <View style={styles.imageContainer}>
-                  <Image
-                    source={{ uri: item.imageUrl || "https://placehold.co/400" }}
-                    style={styles.recipeThumbImage}
-                    
-                  />
-                  
-
-                
-                  
+                    <Image
+                      source={{ uri: item.imageUrl || "https://placehold.co/400" }}
+                      style={styles.recipeThumbImage}
+                    />
                   </View>
                   <View style={styles.itemContent}>
-                    <Text style={styles.itemTitle}>{item.name}</Text>
+                    <Text style={styles.itemTitle}>{item.title}</Text>
                     <View style={styles.itemDetails}>
                       <Text style={styles.detailText}>{item.category}</Text>
                       <Text style={styles.detailText}>{item.rating}</Text>
-                      <Text style={styles.detailText}>{item.time}</Text>
+                      <Text style={styles.detailText}>{item.totalTime}</Text>
                     </View>
                   </View>
                 </View>

@@ -28,13 +28,11 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
       }
     });
 
-    // Fetch ingredients (if stored as a subcollection)
+    // If you're storing ingredients and directions as subcollections, fetch them:
     getIngredients(recipeId).then((data) => {
       console.log("Fetched ingredients:", data);
       setIngredients(data);
     });
-
-    // Fetch directions (if stored as a subcollection)
     getDirections(recipeId).then((data) => {
       console.log("Fetched directions:", data);
       setDirections(data);
@@ -52,22 +50,22 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
     );
   }
 
-  // For directions, if it's a string, split it into an array of steps.
-  const steps = recipeDetail.Directions
-    ? typeof recipeDetail.Directions === "string"
-      ? recipeDetail.Directions.split("\n")
-      : recipeDetail.Directions
-    : [];
+  // If directions is a string, split it into an array of steps.
+  const steps =
+    recipeDetail.directions &&
+    typeof recipeDetail.directions === "string"
+      ? recipeDetail.directions.split("\n")
+      : recipeDetail.directions || [];
 
-  // If ingredients are stored as a map in the recipe document, convert them.
+  // If ingredients are stored as an object (map), convert them to an array
   const ingredientEntries =
-    recipeDetail.Ingredients && typeof recipeDetail.Ingredients === "object"
-      ? Object.entries(recipeDetail.Ingredients)
+    recipeDetail.ingredients && typeof recipeDetail.ingredients === "object"
+      ? Object.entries(recipeDetail.ingredients)
       : [];
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Top Navigation Bar */}
+      {/* Top Navigation */}
       <View style={styles.topBar}>
         <Image
           source={require("../../../../assets/urban-oasis-text-only.png")}
@@ -79,7 +77,7 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
       <View style={{ flex: 1 }}>
         <ScrollView>
           <Text style={styles.recipeTitle}>
-            {recipeDetail.Title || "Untitled Recipe"}
+            {recipeDetail.title || "Untitled Recipe"}
           </Text>
 
           <View style={styles.imageContainer}>
@@ -93,23 +91,34 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
 
           <View style={styles.content}>
             <Text style={styles.categoryRating}>
-              {recipeDetail.Category} • {recipeDetail["Total Time"]}
+              {recipeDetail.category} • {recipeDetail.totalTime}
             </Text>
             <Text style={styles.summary}>
-              {recipeDetail.Description || "No description available."}
+              {recipeDetail.description || "No description available."}
             </Text>
 
             <View style={styles.infoRow}>
               <Text style={styles.infoText}>
-                Servings: {recipeDetail.Servings}
+                Servings: {recipeDetail.servings}
               </Text>
               <Text style={styles.infoText}>
-                Cost: {recipeDetail["Estimated Total Cost"]}
+                Cost: {recipeDetail.estimatedTotalCost}
               </Text>
             </View>
 
             <Text style={styles.infoText}>
-              Calories: {recipeDetail["Calories (grams)"]} g
+              Calories: {recipeDetail.calories} g
+            </Text>
+            <Text style={styles.infoText}>
+              Prep: {recipeDetail.prepTime} | Cook: {recipeDetail.cookTime}
+            </Text>
+            <Text style={styles.infoText}>
+              Fat: {recipeDetail.fat} | Carbs: {recipeDetail.carbs} | Protein: {recipeDetail.protein}
+            </Text>
+
+            <Text style={styles.sectionHeader}>Notes:</Text>
+            <Text style={styles.notesText}>
+              {recipeDetail.notes || "No additional notes."}
             </Text>
 
             <Text style={styles.sectionHeader}>Ingredients:</Text>
@@ -192,5 +201,6 @@ const styles = StyleSheet.create({
   sectionHeader: { color: "#467e53", fontSize: 18, fontWeight: "bold", marginVertical: 8 },
   ingredientText: { color: "#467e53", fontFamily: "serif", fontSize: 16, marginBottom: 4 },
   directionsText: { color: "#467e53", fontFamily: "serif", fontSize: 16, marginBottom: 6 },
+  notesText: { color: "#467e53", fontFamily: "serif", fontSize: 16, marginBottom: 10, textAlign: "center" },
   bottomBar: { flexDirection: "row", justifyContent: "space-around", alignItems: "center", paddingVertical: 12, backgroundColor: "#467e53", position: "absolute", bottom: 0, left: 0, right: 0 },
 });

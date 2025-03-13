@@ -1,127 +1,68 @@
-export const stores = [
+export const LOCATIONS = [
     {
-        id: 1,
-        title: "Whole Foods Market",
-        address: "8003 Turkey Lake Rd, Orlando, FL 32819",
+        title: "Publix Super Market at Hunt Club Corners",
+        image: "https://lh3.googleusercontent.com/p/AF1QipNYhQtxKuarD-jEMMJcoUWrYDmtDeykcNgwGhVo=s1360-w1360-h1020",
+        address: "540 S Hunt Club Blvd, Apopka, FL 32703",
+        typeOfStore: "General",
+        operatingHours: [
+            { day: "Sunday", open: "7 AM", close: "10 PM" },
+            { day: "Monday", open: "7 AM", close: "10 PM" },
+            { day: "Tuesday", open: "7 AM", close: "10 PM" },
+            { day: "Wednesday", open: "7 AM", close: "10 PM" },
+            { day: "Thursday", open: "7 AM", close: "10 PM" },
+            { day: "Friday", open: "7 AM", close: "10 PM" },
+            { day: "Saturday", open: "7 AM", close: "10 PM" }
+        ],
+        costRating: "4",
+        userRating: "3",
         description:
-            "A supermarket chain specializing in natural and organic foods, offering a wide selection of high-quality products.",
-        category: "Supermarket",
-        image: "https://media.wholefoodsmarket.com/app/uploads/2024/07/2024_NSO_HTS_Jul17_000011.jpg",
-        rating: {
-            rate: 4.5,
-            count: 1188
-        }
+            "Supermarket chain with a wide selection of groceries, plus deli & bakery departments.",
+        phoneNumber: "(407) 862-5255",
+        website: "https://www.publix.com",
+        googleMapsLink: "https://www.google.com/maps/dir//540+S+Hunt+Club+Blvd,+Apopka,+FL+32703"
     },
     {
-        id: 2,
-        title: "Chamberlin's Natural Foods",
-        address: "7600 Dr Phillips Blvd, Orlando, FL 32819",
-        description:
-            "Central Florida's trusted resource for all-natural vitamins, groceries, organic and local produce, and cruelty-free cosmetics.",
-        category: "Health Food Store",
-        image: "https://fastly.4sqi.net/img/general/width960/2688614_hv5jrLOAa73nO4jX7MVOMfMfJn6md20pYZmnXZ29LiY.jpg",
-        rating: {
-            rate: 3.9,
-            count: 49
-        }
+        title: "ALDI",
+        image: "https://lh3.googleusercontent.com/p/AF1QipPhRx7ljA6FV2IKth9z2jq8EYdWWL4tDpbZAR-a=s1360-w1360-h1020",
+        address: "924 W State Rd 436 #1410, Altamonte Springs, FL 32714",
+        typeOfStore: "General",
+        operatingHours: [
+            { day: "Sunday", open: "8:30 AM", close: "8 PM" },
+            { day: "Monday", open: "8:30 AM", close: "8 PM" },
+            { day: "Tuesday", open: "8:30 AM", close: "8 PM" },
+            { day: "Wednesday", open: "8:30 AM", close: "8 PM" },
+            { day: "Thursday", open: "8:30 AM", close: "8 PM" },
+            { day: "Friday", open: "8:30 AM", close: "8 PM" },
+            { day: "Saturday", open: "8:30 AM", close: "8 PM" }
+        ],
+        costRating: "3",
+        userRating: "4",
+        description: "Retail chain selling a range of grocery items, meat & dairy.",
+        phoneNumber: "(855) 955-2534",
+        website: "https://stores.aldi.us/fl/altamonte-springs/924-state-road-436",
+        googleMapsLink:
+            "https://www.google.com/maps/dir//924+W+State+Rd+436+#1410,+Altamonte Springs,+FL+32714"
     },
     {
-        id: 3,
-        title: "Sprouts Farmers Market",
-        address: "7603 Turkey Lake Rd, Suite 101, Orlando, FL 32819",
-        description:
-            "A supermarket chain offering a wide selection of natural and organic foods, including fresh produce, bulk foods, and vitamins.",
-        category: "Supermarket",
-        image: "https://about.sprouts.com/wp-content/uploads/2019/10/Exterior-Rendering-e1616708414569-1024x653.jpg",
-        rating: {
-            rate: 4.0,
-            count: 362
-        }
-    },
-    {
-        id: 4,
-        title: "Nature's Market & Fitness",
-        address: "1216 E Colonial Dr, Orlando, FL 32803",
-        description:
-            "Offers quality and discounted vitamins, herbs, diet and fitness supplements, including many exclusive and hard-to-find items.",
-        category: "Health Food Store",
-        image: "https://images.unsplash.com/photo-1556911220-bff31c812dba",
-        rating: {
-            rate: 4.0,
-            count: 22
-        }
-    },
-    {
-        id: 5,
-        title: "Forever Young Natural Health Foods Center",
-        address: "697 N Semoran Blvd, Orlando, FL 32807",
-        description:
-            "A health food store offering a wide range of natural products and supplements.",
-        category: "Health Food Store",
-        image: "https://lh3.googleusercontent.com/p/AF1QipM4b6-avLuyf7rh6ScCiaAWL6mqwQEjcoplhkbb=s680-w680-h510",
-        rating: {
-            rate: 4.0,
-            count: 6
-        }
-    },
-    {
-        id: 6,
-        title: "Health Food City",
-        address: "1225 E Colonial Dr, Orlando, FL 32803",
-        description: "Offers a wide range of health food products and supplements.",
-        category: "Health Food Store",
-        image: "https://lh3.googleusercontent.com/gps-cs-s/AB5caB80gWeTu79stBFNH3X5qEUr154GD2kGPpNbyfkC4GkQjLAt1sAXFMp9HSmG22WmvRy43WIROGAdEDueYsohxhEGNkix3xJFpvHStwOlAO8-HoxhBbWfDGNcpHopeZ78rOLc0DU5wQ=s680-w680-h510",
-        rating: {
-            rate: 4.0,
-            count: 6
-        }
-    },
-    {
-        id: 7,
-        title: "The Fresh Market",
-        address: "5000 Dr Phillips Blvd, Orlando, FL 32819",
-        description: "Provides a variety of organic selections and specialty groceries.",
-        category: "Supermarket",
-        image: "https://images.ctfassets.net/lufu0clouua1/3oAq4gvrw2jJhki2KIPytZ/d45a610a5179134b2bacbe517e373f48/The_Fresh_Market_store_-231__Columbia_SC-108.jpg",
-        rating: {
-            rate: 4.0,
-            count: 50
-        }
-    },
-    {
-        id: 8,
-        title: "Leaves & Roots",
-        address: "9434 E Colonial Dr, Orlando, FL 32817",
-        description: "Specializes in herbs, spices, and natural products.",
-        category: "Herbal Store",
-        image: "https://lh3.googleusercontent.com/p/AF1QipP0-LDKFp0RAEjK0W9WD4rAL0lJjOJ2AK5LpDAj=s680-w680-h510",
-        rating: {
-            rate: 4.5,
-            count: 25
-        }
-    },
-    {
-        id: 9,
-        title: "Sustain Natural Market",
-        address: "1201 N Mills Ave, Orlando, FL 32803",
-        description: "Offers organic groceries, supplements, and eco-friendly products.",
-        category: "Health Food Store",
-        image: "https://lh3.googleusercontent.com/p/AF1QipNB5yO0HncqlrxJ2WGfguG8m65I3c0WhKhw1aP8=s680-w680-h510",
-        rating: {
-            rate: 4.5,
-            count: 30
-        }
-    },
-    {
-        id: 10,
-        title: "Freshfields Farm",
-        address: "400 E Compton St, Orlando, FL 32806",
-        description: "Provides fresh produce, meats, and dairy products directly from farms.",
-        category: "Farmers Market",
-        image: "https://lh3.googleusercontent.com/gps-cs-s/AB5caB_DvLH6tXKLmP3f8CeV3LfpMHhUSwNr9bCk9-gKJJi1FokuUAc6nbMf8rrOgNGza8LXhbgzWkkb1akpVoMLCX8knx_lJwfKqv0Dc5bmfi73Ge3U6FNJnsZrFGaB4vJvT0F9w6zg=s680-w680-h510",
-        rating: {
-            rate: 4.8,
-            count: 200
-        }
+        title: "Walmart",
+        image: "https://lh3.googleusercontent.com/p/AF1QipMF1ixKsIhoYMgpAul0CZC3pjcSdBRX89g4UCk=s680-w680-h510",
+        address: "200 S State Rd 434, Altamonte Springs, FL 32714",
+        typeOfStore: "General",
+        operatingHours: [
+            { day: "Sunday", open: "6 AM", close: "11 PM" },
+            { day: "Monday", open: "6 AM", close: "11 PM" },
+            { day: "Tuesday", open: "6 AM", close: "11 PM" },
+            { day: "Wednesday", open: "6 AM", close: "11 PM" },
+            { day: "Thursday", open: "6 AM", close: "11 PM" },
+            { day: "Friday", open: "6 AM", close: "11 PM" },
+            { day: "Saturday", open: "6 AM", close: "11 PM" }
+        ],
+        costRating: "2",
+        userRating: "3",
+        description: "",
+        phoneNumber: "(407) 774-9966",
+        website: "https://www.walmart.com/store/943-casselberry-fl",
+        googleMapsLink:
+            "https://www.google.com/maps/dir//200+S+State+Rd+434,+Altamonte+Springs,+FL+32714"
     }
 ];

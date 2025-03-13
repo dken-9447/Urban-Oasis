@@ -10,6 +10,8 @@ import { GOOGLE_PLACES_API_KEY } from "@env";
 
 const API_KEY = GOOGLE_PLACES_API_KEY;
 
+console.log("Google API Key: ", API_KEY);
+
 export const MapScreen = ({ route }) => {
     const navigation = useNavigation();
     const coordinates = route.params?.coordinates || null;
@@ -143,19 +145,19 @@ export const MapScreen = ({ route }) => {
             <View style={styles.bottomBar}>
                 <IconButton
                     icon="basket-outline"
-                    size={28}
+                    size={30}
                     iconColor="white"
                     onPress={() => navigation.navigate("StoresListScreen")}
                 />
                 <IconButton
                     icon="home-outline"
-                    size={28}
+                    size={35}
                     iconColor="white"
                     onPress={() => navigation.navigate("Home")}
                 />
                 <IconButton
                     icon="silverware-fork-knife"
-                    size={28}
+                    size={30}
                     iconColor="white"
                     onPress={() => navigation.navigate("Foods")}
                 />
@@ -194,7 +196,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        paddingVertical: 12,
+        paddingVertical: 1,
         backgroundColor: "#467e53",
         position: "absolute",
         bottom: 0,

@@ -97,19 +97,19 @@ export const RecipeListScreen = ({ navigation }) => {
             <View style={styles.bottomBar}>
                 <IconButton
                     icon="basket-outline"
-                    size={28}
+                    size={30}
                     iconColor="white"
                     onPress={() => navigation.navigate("StoresListScreen")}
                 />
                 <IconButton
                     icon="home-outline"
-                    size={28}
+                    size={35}
                     iconColor="white"
                     onPress={() => navigation.navigate("Home")}
                 />
                 <IconButton
                     icon="silverware-fork-knife"
-                    size={28}
+                    size={30}
                     iconColor="white"
                     onPress={() => navigation.navigate("RecipeList")}
                 />
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        paddingVertical: 12,
+        paddingVertical: 1,
         backgroundColor: "#467e53",
         position: "absolute",
         bottom: 0,

@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import { StatusBar, SafeAreaView, StyleSheet, Text, View, Keyboard, Pressable } from "react-native";
+import { StatusBar, SafeAreaView, StyleSheet, View, Keyboard, Pressable } from "react-native";
 import { TextInput, IconButton, Switch } from "react-native-paper";
 import { Image } from "react-native";
-import * as Location from "expo-location";
-import { useNavigation } from "@react-navigation/native";
-import { FlatList } from "react-native-gesture-handler";
 import { useColorScheme } from "nativewind";
 import StoresList from "../components/storeList";
 
@@ -22,14 +19,65 @@ export const StoreListScreen = ({ navigation }) => {
                     />
                 </View>
 
-                {/** Main list of stores */}
-                {/**Testing Dark Mode Button */}
-                <View className="flex-1 items-center justify-center bg-gray-200 dark:bg-black dark:text-white">
-                    <View className="flex-row w-full gap-5">
-                        {/* Dark Mode for later */}
-                        {/* <Switch value={colorScheme === "dark"} onChange={toggleColorScheme} />
-                        <Text className="text-2xl font-bold dark:text-white">Dark Mode</Text> */}
+                <View
+                    className="flex-row items-center mt-3 mb-3 w-full px-4"
+                    style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between"
+                    }}>
+                    {/* Search Box */}
+                    <View
+                        style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            flex: 1,
+                            borderColor: "black",
+                            borderWidth: 0.25,
+                            borderRadius: 25,
+                            paddingHorizontal: 5,
+                            paddingVertical: 2
+                        }}>
+                        <TextInput
+                            placeholder="Search grocery stores"
+                            placeholderTextColor="#8b6f47"
+                            mode="flat"
+                            underlineColor="transparent"
+                            activeUnderlineColor="transparent"
+                            theme={{ colors: { primary: "#467e53", text: "black" } }}
+                            keyboardType="default"
+                            cursorColor="black"
+                            style={{
+                                flex: 1,
+                                backgroundColor: "transparent",
+                                color: "black",
+                                fontSize: 14
+                            }}
+                            editable={true}
+                        />
+
+                        {/* Magnifying Glass Icon*/}
+                        <IconButton
+                            icon="magnify"
+                            size={24}
+                            iconColor="white"
+                            style={{ backgroundColor: "#467e53", borderRadius: 20, marginLeft: 5 }}
+                            onPress={() => console.log("Search button pressed")}
+                        />
                     </View>
+
+                    {/* Filter Icon */}
+                    <IconButton
+                        icon="filter-variant"
+                        size={28}
+                        iconColor="black"
+                        onPress={() => console.log("Filter icon pressed")}
+                        style={{ marginLeft: 15 }}
+                    />
+                </View>
+
+                {/** Main list of stores */}
+                <View className="flex-1 items-center justify-center">
                     <StoresList />
                 </View>
 
@@ -37,19 +85,19 @@ export const StoreListScreen = ({ navigation }) => {
                 <View style={styles.bottomBar}>
                     <IconButton
                         icon="basket-outline"
-                        size={28}
+                        size={30}
                         iconColor="white"
                         onPress={() => navigation.navigate("StoresListScreen")}
                     />
                     <IconButton
                         icon="home-outline"
-                        size={28}
+                        size={35}
                         iconColor="white"
                         onPress={() => navigation.navigate("Home")}
                     />
                     <IconButton
                         icon="silverware-fork-knife"
-                        size={28}
+                        size={30}
                         iconColor="white"
                         onPress={() => navigation.navigate("RecipeList")}
                     />
@@ -80,7 +128,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        paddingVertical: 12,
+        paddingVertical: 1,
         backgroundColor: "#467e53",
         position: "absolute",
         bottom: 0,

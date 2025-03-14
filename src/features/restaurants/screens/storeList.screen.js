@@ -32,7 +32,8 @@ export const StoreListScreen = ({ navigation }) => {
                             flexDirection: "row",
                             alignItems: "center",
                             flex: 1,
-                            borderColor: "black",
+                            backgroundColor: "#FFFFFF", 
+                            borderColor: "A7A7A7",
                             borderWidth: 0.25,
                             borderRadius: 25,
                             paddingHorizontal: 5,
@@ -40,11 +41,12 @@ export const StoreListScreen = ({ navigation }) => {
                         }}>
                         <TextInput
                             placeholder="Search grocery stores"
-                            placeholderTextColor="#8b6f47"
+                            placeholderTextColor="#A7A7A7"
                             mode="flat"
                             underlineColor="transparent"
                             activeUnderlineColor="transparent"
-                            theme={{ colors: { primary: "#467e53", text: "black" } }}
+                            theme={{ 
+                                colors: { primary: "#467e53", text: "black" } }}
                             keyboardType="default"
                             cursorColor="black"
                             style={{
@@ -59,9 +61,8 @@ export const StoreListScreen = ({ navigation }) => {
                         {/* Magnifying Glass Icon*/}
                         <IconButton
                             icon="magnify"
-                            size={24}
-                            iconColor="white"
-                            style={{ backgroundColor: "#467e53", borderRadius: 20, marginLeft: 5 }}
+                            size={25}
+                            iconColor="#A7A7A7"
                             onPress={() => console.log("Search button pressed")}
                         />
                     </View>
@@ -85,19 +86,19 @@ export const StoreListScreen = ({ navigation }) => {
                 <View style={styles.bottomBar}>
                     <IconButton
                         icon="basket-outline"
-                        size={30}
-                        iconColor="white"
+                        size={45}
+                        iconColor="#BCEDC3"
                         onPress={() => navigation.navigate("StoresListScreen")}
                     />
                     <IconButton
                         icon="home-outline"
-                        size={35}
+                        size={45}
                         iconColor="white"
                         onPress={() => navigation.navigate("Home")}
                     />
                     <IconButton
                         icon="silverware-fork-knife"
-                        size={30}
+                        size={45}
                         iconColor="white"
                         onPress={() => navigation.navigate("RecipeList")}
                     />
@@ -117,8 +118,10 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         paddingVertical: 10,
-        backgroundColor: "#467e53"
-    },
+        backgroundColor: "#7FA184",
+        borderBottomWidth: 2, 
+        borderBottomColor: "#5E7147", 
+      },  
     logo: {
         width: 150,
         height: 40,
@@ -128,11 +131,12 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        paddingVertical: 1,
-        backgroundColor: "#467e53",
+        paddingVertical: 0,
+        backgroundColor: "#7FA184",
+        borderTopColor: "#5E7147", 
         position: "absolute",
         bottom: 0,
         left: 0,
-        right: 0
-    }
+        right: 0,
+      },
 });

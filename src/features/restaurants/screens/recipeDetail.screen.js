@@ -150,7 +150,7 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
             <Button
               icon="magnify"
               mode="contained"
-              buttonColor="#467e53"
+              buttonColor="#7FA184"
               onPress={() => console.log("Locate store button pressed.")}
             >
               Locate Store
@@ -165,20 +165,20 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
       <View style={styles.bottomBar}>
         <IconButton
           icon="basket-outline"
-          size={28}
+          size={45}
           iconColor="white"
           onPress={() => console.log("Basket-outline pressed")}
         />
         <IconButton
           icon="home-outline"
-          size={28}
+          size={45}
           iconColor="white"
           onPress={() => navigation.navigate("Home")}
         />
         <IconButton
           icon="silverware-fork-knife"
-          size={28}
-          iconColor="white"
+          size={45}
+          iconColor="#BCEDC3"
           onPress={() => navigation.navigate("RecipeList")}
         />
       </View>
@@ -187,20 +187,104 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, marginTop: StatusBar.currentHeight },
-  topBar: { flexDirection: "row", justifyContent: "center", alignItems: "center", paddingVertical: 10, backgroundColor: "#467e53" },
-  logo: { width: 150, height: 40, resizeMode: "contain" },
-  recipeTitle: { fontWeight: "bold", color: "#467e53", fontFamily: "serif", fontSize: 22, padding: 8, textAlign: "center" },
-  imageContainer: { backgroundColor: "#467e53", alignItems: "center", padding: 8 },
-  recipeDetailImage: { width: 400, height: 225, borderRadius: 10 },
-  content: { padding: 16 },
-  categoryRating: { color: "#467e53", fontWeight: "bold", marginBottom: 6, textAlign: "center" },
-  summary: { color: "#467e53", fontFamily: "serif", fontSize: 16, marginBottom: 10, textAlign: "center" },
-  infoRow: { flexDirection: "row", justifyContent: "space-around", marginVertical: 10 },
-  infoText: { color: "#467e53", fontWeight: "bold", textAlign: "center" },
-  sectionHeader: { color: "#467e53", fontSize: 18, fontWeight: "bold", marginVertical: 8 },
-  ingredientText: { color: "#467e53", fontFamily: "serif", fontSize: 16, marginBottom: 4 },
-  directionsText: { color: "#467e53", fontFamily: "serif", fontSize: 16, marginBottom: 6 },
-  notesText: { color: "#467e53", fontFamily: "serif", fontSize: 16, marginBottom: 10, textAlign: "center" },
-  bottomBar: { flexDirection: "row", justifyContent: "space-around", alignItems: "center", paddingVertical: 12, backgroundColor: "#467e53", position: "absolute", bottom: 0, left: 0, right: 0 },
+  container: { 
+    flex: 1, 
+    marginTop: StatusBar.currentHeight 
+  },
+  topBar: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 10,
+    backgroundColor: "#7FA184",
+    borderBottomWidth: 2, 
+    borderBottomColor: "#5E7147", 
+  },  
+  logo: { 
+    width: 150, 
+    height: 40, 
+    resizeMode: "contain" 
+  },
+  recipeTitle: { 
+    fontWeight: "bold", 
+    color: "#467e53", 
+    fontFamily: "serif", 
+    fontSize: 22, 
+    padding: 8, 
+    textAlign: "center" 
+  },
+  imageContainer: { 
+    backgroundColor: "#467e53", 
+    alignItems: "center", 
+    padding: 8 
+  },
+  recipeDetailImage: { 
+    width: 400, 
+    height: 225, 
+    borderRadius: 10 
+  },
+  content: { 
+    padding: 16 
+  },
+  categoryRating: { 
+    color: "#467e53", 
+    fontWeight: "bold", 
+    marginBottom: 6, 
+    textAlign: "center" 
+  },
+  summary: { 
+    color: "#467e53", 
+    fontFamily: "serif", 
+    fontSize: 16, 
+    marginBottom: 10, 
+    textAlign: "center" 
+  },
+  infoRow: { 
+    flexDirection: "row", 
+    justifyContent: "space-around", 
+    marginVertical: 10 
+  },
+  infoText: { 
+    color: "#467e53", 
+    fontWeight: "bold", 
+    textAlign: "center" 
+  },
+  sectionHeader: { 
+    color: "#467e53", 
+    fontSize: 18, 
+    fontWeight: "bold", 
+    marginVertical: 8 
+  },
+  ingredientText: { 
+    color: "#467e53", 
+    fontFamily: "serif", 
+    fontSize: 16, 
+    marginBottom: 4 
+  },
+  directionsText: { 
+    color: "#467e53", 
+    fontFamily: "serif", 
+    fontSize: 16, 
+    marginBottom: 6 
+  },
+  notesText: { 
+    color: "#467e53", 
+    fontFamily: "serif", 
+    fontSize: 16, 
+    marginBottom: 10, 
+    textAlign: "center" 
+  },
+  bottomBar: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    paddingVertical: 0,
+    backgroundColor: "#7FA184",
+    borderTopColor: "#5E7147", 
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
 });
+

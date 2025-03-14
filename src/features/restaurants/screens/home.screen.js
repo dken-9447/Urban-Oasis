@@ -113,7 +113,18 @@ export const HomeScreen = () => {
                     </Text>
 
                     {/* Search Bar */}
-                    <View className="flex-row items-center mt-6 w-3/4 bg-[#EDD2BD] rounded-full px-4 py-2">
+                    <View 
+                        className="flex-row items-center mt-6 w-3/4 bg-[#EDD2BD] rounded-full px-4 py-2"
+                        style={{
+                            borderWidth: 2,
+                            borderColor: "#B99772",
+                            shadowColor: "#000", 
+                            shadowOffset: { width: 0, height: 3 }, 
+                            shadowOpacity: 0.2,
+                            shadowRadius: 4,
+                            elevation: 4,
+                        }}
+                    >
                         <TextInput
                             placeholder="Enter current address"
                             placeholderTextColor="#8b6f47"
@@ -135,9 +146,15 @@ export const HomeScreen = () => {
                         />
                         <IconButton
                             icon="magnify"
-                            size={24}
+                            size={30}
                             iconColor="white"
-                            style={{ backgroundColor: "#467e53", borderRadius: 20 }}
+                            style={{ 
+                                backgroundColor: "#7FA184", 
+                                borderRadius: 20, 
+                                borderWidth: 2,
+                                borderColor: "#3B5C49",
+                                padding: 2, 
+                            }}
                             onPress={handleSearch}
                         />
                     </View>
@@ -147,19 +164,19 @@ export const HomeScreen = () => {
                 <View style={styles.bottomBar}>
                     <IconButton
                         icon="basket-outline"
-                        size={35}
+                        size={45}
                         iconColor="white"
                         onPress={() => navigation.navigate("StoresListScreen")}
                     />
                     <IconButton
                         icon="home-outline"
-                        size={35}
-                        iconColor="white"
+                        size={45}
+                        iconColor="#BCEDC3"
                         onPress={() => navigation.navigate("Home")}
                     />
                     <IconButton
                         icon="silverware-fork-knife"
-                        size={35}
+                        size={45}
                         iconColor="white"
                         onPress={() => navigation.navigate("RecipeList")}
                     />
@@ -179,8 +196,10 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         paddingVertical: 10,
-        backgroundColor: "#467e53"
-    },
+        backgroundColor: "#7FA184",
+        borderBottomWidth: 2, 
+        borderBottomColor: "#5E7147", 
+      },  
     logo: {
         width: 150,
         height: 40,
@@ -190,11 +209,12 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        paddingVertical: 1,
-        backgroundColor: "#467e53",
+        paddingVertical: 0,
+        backgroundColor: "#7FA184",
+        borderTopColor: "#5E7147", 
         position: "absolute",
         bottom: 0,
         left: 0,
-        right: 0
-    }
+        right: 0,
+      },
 });

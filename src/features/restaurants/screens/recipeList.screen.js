@@ -46,19 +46,19 @@ export const RecipeListScreen = ({ navigation }) => {
           <View style={styles.searchContainer}>
             <TextInput
               placeholder="Search recipes"
-              placeholderTextColor="#467e53"
+              placeholderTextColor="#A7A7A7"
               mode="flat"
               underlineColor="transparent"
               activeUnderlineColor="transparent"
               keyboardType="default"
-              cursorColor="#467e53"
+              cursorColor="#A7A7A7"
               style={styles.recipeSearch}
               editable={true}
             />
             <IconButton
               icon="magnify"
               size={25}
-              iconColor="#467e53"
+              iconColor="#A7A7A7"
               onPress={() => console.log("Recipe-search pressed")}
             />
           </View>
@@ -66,7 +66,7 @@ export const RecipeListScreen = ({ navigation }) => {
             <IconButton
               icon="filter-outline"
               size={45}
-              iconColor="#467e53"
+              iconColor="#7FA184"
               onPress={() => console.log("Recipe-filter pressed")}
             />
           </View>
@@ -109,20 +109,20 @@ export const RecipeListScreen = ({ navigation }) => {
       <View style={styles.bottomBar}>
         <IconButton
           icon="basket-outline"
-          size={28}
+          size={45}
           iconColor="white"
           onPress={() => console.log("Basket-outline pressed")}
         />
         <IconButton
           icon="home-outline"
-          size={28}
+          size={45}
           iconColor="white"
           onPress={() => navigation.navigate("Home")}
         />
         <IconButton
           icon="silverware-fork-knife"
-          size={28}
-          iconColor="white"
+          size={45}
+          iconColor="#BCEDC3"
           onPress={() => navigation.navigate("RecipeList")}
         />
       </View>
@@ -140,8 +140,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 10,
-    backgroundColor: "#467e53",
-  },
+    backgroundColor: "#7FA184",
+    borderBottomWidth: 2, 
+    borderBottomColor: "#5E7147", 
+  },  
   logo: {
     width: 150,
     height: 40,
@@ -150,7 +152,7 @@ const styles = StyleSheet.create({
   mainContent: {
     flex: 1,
     padding: 16,
-    marginBottom: 60, // leave space for bottom navigation
+    marginBottom: 60,
   },
   searchRow: {
     flexDirection: "row",
@@ -160,8 +162,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 3,
     borderWidth: 2,
-    borderColor: "#467e53",
-    borderRadius: 20,
+    borderColor: "#A7A7A7",
+    backgroundColor: "#FFFFFF", 
+    borderRadius: 25,
     paddingHorizontal: 10,
     paddingVertical: 5,
     marginRight: 10,
@@ -174,7 +177,7 @@ const styles = StyleSheet.create({
   recipeSearch: {
     flex: 1,
     backgroundColor: "transparent",
-    color: "#467e53",
+    color: "#A7A7A7",
     fontSize: 14,
   },
   headerText: {
@@ -186,11 +189,15 @@ const styles = StyleSheet.create({
   },
   item: {
     padding: 10,
-    borderWidth: 1,
-    borderColor: "#467e53",
     marginBottom: 10,
     borderRadius: 10,
-  },
+    backgroundColor: "#FFFFFF", 
+    shadowColor: "#000", 
+    shadowOffset: { width: 0, height: 3 }, 
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 4, 
+  },  
   itemRow: {
     flexDirection: "row",
   },
@@ -215,18 +222,36 @@ const styles = StyleSheet.create({
   },
   itemDetails: {
     flexDirection: "row",
+    flexWrap: "nowrap",
+    justifyContent: "flex-start", 
+    gap: 10,
+    width: "100%",
+    overflow: "hidden",
   },
   detailText: {
-    marginRight: 12,
+    minWidth: "10%", 
+    maxWidth: "45%", 
+    marginBottom: 6,
     color: "#467e53",
     fontWeight: "600",
-  },
+    backgroundColor: "#ECECEC",
+    paddingHorizontal: 4,
+    paddingVertical: 4,
+    borderRadius: 4,
+    shadowColor: "#000",
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 3,
+    textAlign: "center",
+  },  
   bottomBar: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    paddingVertical: 12,
-    backgroundColor: "#467e53",
+    paddingVertical: 0,
+    backgroundColor: "#7FA184",
+    borderTopColor: "#5E7147", 
     position: "absolute",
     bottom: 0,
     left: 0,

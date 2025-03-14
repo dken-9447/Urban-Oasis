@@ -100,7 +100,7 @@ Once VSCode is installed, open it and install the following extensions:
     - **React Native Tools** → Debugging for React Native (**by Microsoft**)
     - **React-Native/React/Redux Snippets for ES6/ES7** → Code snippets (**by dsznajder**)
 
-#### **Method 2: Install Extensions via Command Line**
+#### **Method 2: Install Extensions via Command Line!**
 
 If you want to install them all at once, open a terminal and run:
 

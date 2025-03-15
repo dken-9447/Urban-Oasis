@@ -28,7 +28,7 @@ export const HomeScreen = () => {
         try {
             const response = await fetch(url);
             const data = await response.json();
-            console.log("Geocode API Response:", data);
+            //console.log("Geocode API Response:", data);
 
             if (data.results.length > 0) {
                 const location = data.results[0].geometry.location;
@@ -41,7 +41,7 @@ export const HomeScreen = () => {
                 return null;
             }
         } catch (error) {
-            console.error("Error fetching coordinates:", error);
+            //console.error("Error fetching coordinates:", error);
             Alert.alert("Error", "Could not get location.");
             return null;
         }
@@ -113,18 +113,17 @@ export const HomeScreen = () => {
                     </Text>
 
                     {/* Search Bar */}
-                    <View 
+                    <View
                         className="flex-row items-center mt-6 w-3/4 bg-[#EDD2BD] rounded-full px-4 py-2"
                         style={{
                             borderWidth: 2,
                             borderColor: "#B99772",
-                            shadowColor: "#000", 
-                            shadowOffset: { width: 0, height: 3 }, 
+                            shadowColor: "#000",
+                            shadowOffset: { width: 0, height: 3 },
                             shadowOpacity: 0.2,
                             shadowRadius: 4,
-                            elevation: 4,
-                        }}
-                    >
+                            elevation: 4
+                        }}>
                         <TextInput
                             placeholder="Enter current address"
                             placeholderTextColor="#8b6f47"
@@ -148,12 +147,12 @@ export const HomeScreen = () => {
                             icon="magnify"
                             size={30}
                             iconColor="white"
-                            style={{ 
-                                backgroundColor: "#7FA184", 
-                                borderRadius: 20, 
+                            style={{
+                                backgroundColor: "#7FA184",
+                                borderRadius: 20,
                                 borderWidth: 2,
                                 borderColor: "#3B5C49",
-                                padding: 2, 
+                                padding: 2
                             }}
                             onPress={handleSearch}
                         />
@@ -197,9 +196,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingVertical: 10,
         backgroundColor: "#7FA184",
-        borderBottomWidth: 2, 
-        borderBottomColor: "#5E7147", 
-      },  
+        borderBottomWidth: 2,
+        borderBottomColor: "#5E7147"
+    },
     logo: {
         width: 150,
         height: 40,
@@ -211,10 +210,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingVertical: 0,
         backgroundColor: "#7FA184",
-        borderTopColor: "#5E7147", 
+        borderTopColor: "#5E7147",
         position: "absolute",
         bottom: 0,
         left: 0,
-        right: 0,
-      },
+        right: 0
+    }
 });

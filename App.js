@@ -8,6 +8,7 @@ import "./global.css";
 import "./gesture-handler";
 import { createStackNavigator } from "@react-navigation/stack";
 import { StoreListScreen } from "./src/features/restaurants/screens/storeList.screen";
+import { StoreDetailScreen } from "./src/features/restaurants/screens/storeDetail.screen";
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,7 @@ export default function App() {
                 <Stack.Screen name="RecipeDetail" component={RecipeDetailScreen} />
                 <Stack.Screen name="Maps" component={MapScreen} />
                 <Stack.Screen name="StoresListScreen" component={StoreListScreen} />
+                <Stack.Screen name="StoreDetailScreen" component={StoreDetailScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

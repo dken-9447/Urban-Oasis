@@ -32,7 +32,7 @@ export const StoreListScreen = ({ navigation }) => {
                             flexDirection: "row",
                             alignItems: "center",
                             flex: 1,
-                            backgroundColor: "#FFFFFF", 
+                            backgroundColor: "#FFFFFF",
                             borderColor: "A7A7A7",
                             borderWidth: 0.25,
                             borderRadius: 25,
@@ -45,8 +45,9 @@ export const StoreListScreen = ({ navigation }) => {
                             mode="flat"
                             underlineColor="transparent"
                             activeUnderlineColor="transparent"
-                            theme={{ 
-                                colors: { primary: "#467e53", text: "black" } }}
+                            theme={{
+                                colors: { primary: "#467e53", text: "black" }
+                            }}
                             keyboardType="default"
                             cursorColor="black"
                             style={{
@@ -119,9 +120,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingVertical: 10,
         backgroundColor: "#7FA184",
-        borderBottomWidth: 2, 
-        borderBottomColor: "#5E7147", 
-      },  
+        borderBottomWidth: 2,
+        borderBottomColor: "#5E7147"
+    },
     logo: {
         width: 150,
         height: 40,
@@ -133,10 +134,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingVertical: 0,
         backgroundColor: "#7FA184",
-        borderTopColor: "#5E7147", 
+        borderTopColor: "#5E7147",
         position: "absolute",
         bottom: 0,
         left: 0,
-        right: 0,
-      },
+        right: 0
+    }
 });

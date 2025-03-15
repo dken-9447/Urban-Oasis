@@ -11,7 +11,7 @@ import {
     MESSAGING_SENDER_ID,
     APP_ID,
     MEASUREMENT_ID
-} from "@env"; // React Native uses @env, not process.env
+} from "@env";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -25,7 +25,6 @@ const firebaseConfig = {
     measurementId: MEASUREMENT_ID
 };
 
-// Prevent duplicate initialization
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
 // Initialize services
@@ -35,7 +34,6 @@ if (typeof window !== "undefined") {
 }
 const db = getFirestore(app);
 
-// --- Recipe Data ---
 export const recipeDetail = [
     {
         id: 1,
@@ -88,19 +86,19 @@ export async function getRecipeList() {
  */
 export async function getRecipeDetail(recipeId) {
     try {
-        console.log("Fetching recipe detail for ID:", recipeId);
+        //console.log("Fetching recipe detail for ID:", recipeId);
         const docRef = doc(db, "recipes", recipeId);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-            console.log("Found recipe:", docSnap.data());
+            //console.log("Found recipe:", docSnap.data());
             return { id: docSnap.id, ...docSnap.data() };
         } else {
-            console.log("No recipe found for ID:", recipeId);
+            //console.log("No recipe found for ID:", recipeId);
             return null;
         }
     } catch (error) {
-        console.error("Error fetching recipe detail:", error);
+        //console.error("Error fetching recipe detail:", error);
         return null;
     }
 }
@@ -127,6 +125,32 @@ export async function getDirections(recipeId) {
         return snapshot.docs.map((docSnap) => ({ id: docSnap.id, ...docSnap.data() }));
     } catch (error) {
         console.error("Error fetching directions:", error);
+        return [];
+    }
+}
+
+/**
+ * Fetching data from the locations collection
+ */
+
+export async function getLocations() {
+    try {
+        const snapshot = await getDocs(collection(db, "locations"));
+        const locationsList = snapshot.docs.map((docSnap) => ({
+            id: docSnap.id,
+            title: docSnap.data().title || "Unknown store :(",
+            image: docSnap.data().image || "https://placehold.co/400",
+            address: docSnap.data().address || "Address not available :(",
+            typeOfStore: docSnap.data().typeOfStore || "General",
+            userRating: Number(docSnap.data().userRating) || 3,
+            description: docSnap.data().description || "No description available",
+            website: docSnap.data().website || "",
+            googleMapsLink: docSnap.data().googleMapsLink || ""
+        }));
+
+        return locationsList;
+    } catch (error) {
+        console.error("Error fetching locations :(", error);
         return [];
     }
 }

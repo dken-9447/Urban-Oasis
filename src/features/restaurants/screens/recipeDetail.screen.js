@@ -125,7 +125,7 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
             {ingredientEntries.length > 0 ? (
               ingredientEntries.map(([key, value]) => (
                 <Text key={key} style={styles.ingredientText}>
-                  {key}: {typeof value === "string" ? value : "Reference"}
+                  {parseInt(key, 10) + 1}: {typeof value === "string" ? value : "Reference"}
                 </Text>
               ))
             ) : (
@@ -147,6 +147,7 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
               </Text>
             )}
 
+            <View className="mt-10" />
             <Button
               icon="magnify"
               mode="contained"
@@ -155,6 +156,22 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
             >
               Locate Store
             </Button>
+            <View className="mt-10" />
+
+            <Text style={styles.sectionHeader}>Pricing Guide:</Text>
+            {ingredientEntries.length > 0 ? (
+              ingredientEntries.map(([key, value]) => (
+                <Text key={key} style={styles.ingredientPricing}>
+                  {/* {key}: {typeof value === "string" ? value : "Reference"} */}
+                  {recipeDetail.ingredientCosts[key]}
+                  {/* {recipeDetail.ingredientCosts} */}
+                </Text>
+              ))
+            ) : (
+              <Text style={styles.ingredientText}>
+                No ingredients pricing guide available.
+              </Text>
+            )}
 
             <View style={{ marginBottom: 250 }} />
           </View>
@@ -256,6 +273,12 @@ const styles = StyleSheet.create({
     marginVertical: 8 
   },
   ingredientText: { 
+    color: "#467e53", 
+    fontFamily: "serif", 
+    fontSize: 16, 
+    marginBottom: 4,
+  },
+  ingredientPricing: { 
     color: "#467e53", 
     fontFamily: "serif", 
     fontSize: 16, 

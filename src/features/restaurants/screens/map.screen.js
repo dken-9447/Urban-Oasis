@@ -10,7 +10,7 @@ import { GOOGLE_PLACES_API_KEY } from "@env";
 
 const API_KEY = GOOGLE_PLACES_API_KEY;
 
-console.log("Google API Key: ", API_KEY);
+//console.log("Google API Key: ", API_KEY);
 
 export const MapScreen = ({ route }) => {
     const navigation = useNavigation();
@@ -20,7 +20,7 @@ export const MapScreen = ({ route }) => {
     const [address, setAddress] = useState("");
 
     useEffect(() => {
-        console.log("Received coordinates:", coordinates);
+        //console.log("Received coordinates:", coordinates);
 
         if (coordinates && coordinates.latitude && coordinates.longitude) {
             setRegion({
@@ -32,7 +32,7 @@ export const MapScreen = ({ route }) => {
 
             fetchNearbyFoodStores(coordinates.latitude, coordinates.longitude);
         } else {
-            console.log("Invalid coordinates received.");
+            //console.log("Invalid coordinates received.");
             Alert.alert("Error", "Invalid coordinates received.");
         }
     }, [coordinates]);
@@ -44,20 +44,20 @@ export const MapScreen = ({ route }) => {
         try {
             const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=${radius}&type=${type}&key=${API_KEY}`;
 
-            console.log("Fetching places from:", url);
+            //console.log("Fetching places from:", url);
 
             const response = await fetch(url);
             const data = await response.json();
 
-            console.log("Places API Response:", data);
+            //console.log("Places API Response:", data);
 
             if (data.results) {
                 setFoodStores(data.results);
             } else {
-                console.log("No results found:", data);
+                //console.log("No results found:", data);
             }
         } catch (error) {
-            console.error("Google Places API Error:", error);
+            //console.error("Google Places API Error:", error);
             Alert.alert("Error", "Failed to fetch nearby stores.");
         }
     };
@@ -71,14 +71,14 @@ export const MapScreen = ({ route }) => {
             }
 
             let location = await Location.getCurrentPositionAsync({});
-            console.log("User's Location:", location);
+            //console.log("User's Location:", location);
 
             return {
                 latitude: location.coords.latitude,
                 longitude: location.coords.longitude
             };
         } catch (error) {
-            console.error("Error getting location:", error);
+            //console.error("Error getting location:", error);
             Alert.alert("Error", "Could not get your location.");
             return null;
         }
@@ -88,14 +88,14 @@ export const MapScreen = ({ route }) => {
         let coordinates;
 
         if (address.trim() === "") {
-            coordinates = await getCurrentLocation();
+            //coordinates = await getCurrentLocation();
         } else {
             // Placeholder coordinates (Orlando, FL)
-            coordinates = { latitude: 28.5384, longitude: -81.3789 };
+            //coordinates = { latitude: 28.5384, longitude: -81.3789 };
         }
 
         if (coordinates) {
-            console.log("Navigating to MapScreen with:", coordinates);
+            //console.log("Navigating to MapScreen with:", coordinates);
             navigation.navigate("Maps", { coordinates });
         } else {
             Alert.alert("Error", "Could not retrieve location.");

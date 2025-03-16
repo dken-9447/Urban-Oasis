@@ -128,58 +128,27 @@ code --install-extension dsznajder.es7-react-js-snippets
     npm -v
     ```
     - You should see version numbers displayed.
-
----
-
-### **✅ Step 4: Install Expo CLI**
-
-Since your project uses **Expo**, install Expo CLI globally.
-
-#### **Installation Command:**
-
-```sh
-npm install -g expo-cli
-```
-
-#### **Verify Installation:**
-
-```sh
-expo --version
-```
-
-If the installation is successful, it will display the installed version of Expo.
-
+      
 ---
 
 ## **📂 2. Clone the Project and Install Dependencies**
 
 Once your tools are installed, you can **clone the repository** and set up dependencies.
 
-### **✅ Step 5: Clone the GitHub Repository**
+### **✅ Step 4: Clone the GitHub Repository**
 
 #### **Cloning an Existing Repo:**
 
 If you are cloning the project directly, run:
 
 ```sh
-git clone https://github.com/YOUR-USERNAME/urban-oasis.git
+git clone https://github.com/dken-9447/Urban-Oasis.git
 cd urban-oasis
 ```
 
-#### **Forking the Repo First (If Needed):**
-
-1. Open **GitHub** and go to the repository.
-2. Click **Fork** (top right) to create your own copy.
-3. Copy the **new forked repo URL**.
-4. Clone it using:
-    ```sh
-    git clone https://github.com/YOUR-USERNAME/urban-oasis.git
-    cd urban-oasis
-    ```
-
 ---
 
-### **✅ Step 6: Install Dependencies**
+### **✅ Step 5: Install Dependencies**
 
 Once inside the project folder, install the required dependencies.
 
@@ -197,19 +166,56 @@ yarn install
 
 This will install all required libraries and packages based on the `package.json` file.
 
+### **➡️ Step 5.1: Obtain & Set Up the .env File**
+‼️Important‼️: The project requires API keys and environment variables stored in a .env file.
+
+✅ Follow these steps to configure it:
+
+Obtain the .env file from one of the developers.
+Place it in the root directory of the project (same level as package.json).
+Ensure it contains the necessary API keys.
+Example of how the .env file might look:
+
+```sh
+API_KEY=your-api-key-here
+AUTH_DOMAIN=your-auth-domain-here
+PROJECT_ID=your-project-id-here
+```
+
+‼️Important‼️: Ensure to rename env file after it has been dragged and dropped into root directory to ".env". Otherwise, it won't let you change it due to file naming restrictions.
+
+### **➡️ Step 5.2: Install react-native-dotenv**
+Your app requires the react-native-dotenv package to read the .env file.
+
+📥 Install it using npm:
+
+```sh
+npm install react-native-dotenv
+```
+
+📥 Or using Yarn:
+
+```sh
+yarn add react-native-dotenv
+```
+
+‼️If not installed, the app will break!‼️ Make sure this package is added.
+
+✅ Confirm Installation Check if the package is installed in your package.json dependencies. Example of how the package.json file might look like:
+
+```sh
+"dependencies": {
+  "react-native-dotenv": "^3.2.0"
+}
+```
+
 ---
 
 ## **🚀 3. Running the Project**
 
 Now that everything is installed, you can start the project.
 
-⚠️3/10/2025 Note: Before running the application make sure to update your packages and dependencies using:
-
-```sh
-npm install
-```
-
-### **✅ Step 7: Start the Expo Project**
+### **✅ Step 6: Start the Expo Project**
 
 ```sh
 npm start
@@ -286,41 +292,19 @@ Now that we’ve installed **VSCode, Node.js, and Expo CLI**, let's set up **And
 
 ---
 
-## **📌 2️⃣ Setting Up an iOS Simulator (Mac Only)**
+## **📌 2️⃣ Setting Up an iOS Simulator (iOS Only)**
 
-### **✅ Option 1: Use an Actual iPhone (Recommended)**
+### **✅ Use an Actual iPhone (Recommended)**
 
 1. **Download the Expo Go App**  
    📲 [**Expo Go (iOS)**](https://apps.apple.com/us/app/expo-go/id982107779)
 2. **Start the Expo server**
     ```sh
-    expo start
+    npm start
     ```
 3. **Scan the QR Code in Expo Go App**
 
 ✔ **Works instantly without Xcode!**
-
----
-
-### **✅ Option 2: Use the iOS Simulator (Mac Only)**
-
-1. **Download & Install Xcode**  
-   📥 [**Xcode Download**](https://apps.apple.com/us/app/xcode/id497799835?mt=12)
-2. **Install Xcode Command Line Tools**
-    ```sh
-    sudo xcode-select --install
-    ```
-3. **Run the iOS Simulator**
-    ```sh
-    open -a Simulator
-    ```
-4. **Run the React Native App in iOS Simulator**
-    ```sh
-    expo start
-    ```
-    - Press **"i"** to launch the iOS Simulator.
-
-✔ **Mac-only (Windows users cannot run iOS Simulator).**
 
 ---
 

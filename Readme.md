@@ -88,7 +88,7 @@ Before cloning or running the project, install the necessary tools.
 
 ### **✅ Step 2: Install Required VSCode Extensions**
 
-Once VSCode is installed, open it and install the following extensions:
+Once VSCode is installed, open it and install all of the following extensions:
 
 #### **Method 1: Install via VSCode Extensions Panel**
 

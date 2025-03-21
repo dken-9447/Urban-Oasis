@@ -4,21 +4,47 @@ import StoreCard from "./storeCard";
 import { getLocations } from "./data";
 import { useEffect, useState } from "react";
 import { ActivityIndicator } from "react-native-paper";
+import { getDistance } from "geolib";
 
-export default function StoresList() {
+export default function StoresList({
+    showOnlyOpen = false,
+    filterType = null,
+    userLocation = null,
+    maxDistance = null
+}) {
     const [locations, setLocations] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchData() {
-            const fetchedLocations = await getLocations();
-            //console.log("🛠 Fetched Locations:", fetchedLocations);
+            let fetchedLocations = await getLocations();
+
+            if (showOnlyOpen) {
+                fetchedLocations = fetchedLocations.filter((store) => store.isOpen);
+            }
+
+            if (filterType) {
+                fetchedLocations = fetchedLocations.filter(
+                    (store) => store.typeOfStore === filterType
+                );
+            }
+
+            if (userLocation && maxDistance !== null) {
+                fetchedLocations = fetchedLocations.filter((store) => {
+                    const dist = getDistance(userLocation, {
+                        latitude: store.latitude,
+                        longitude: store.longitude
+                    });
+                    return dist <= maxDistance;
+                });
+            }
+
             setLocations(fetchedLocations);
             setLoading(false);
         }
 
         fetchData();
-    }, []);
+    }, [showOnlyOpen, filterType, userLocation, maxDistance]);
 
     if (loading) {
         return (

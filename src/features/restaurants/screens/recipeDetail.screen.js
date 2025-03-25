@@ -113,7 +113,7 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
                         {ingredientEntries.length > 0 ? (
                             ingredientEntries.map(([key, value]) => (
                                 <Text key={key} style={styles.ingredientText}>
-                                    {parseInt(key, 10) + 1}:{" "}
+                                    {parseInt(key, 10) + 1}.{" "}
                                     {typeof value === "string" ? value : "Reference"}
                                 </Text>
                             ))

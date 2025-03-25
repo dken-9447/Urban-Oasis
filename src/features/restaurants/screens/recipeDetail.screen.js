@@ -10,29 +10,15 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
     const [directions, setDirections] = useState([]);
 
     useEffect(() => {
-        //console.log("Fetching recipe detail for ID:", recipeId);
         getRecipeDetail(recipeId).then((data) => {
-            if (data) {
-                //console.log("Fetched recipe detail:", data);
-                setRecipeDetail(data);
-            } else {
-                //console.log("No recipe found for ID:", recipeId);
-            }
+            if (data) setRecipeDetail(data);
         });
 
-        // If you're storing ingredients and directions as subcollections, fetch them:
-        getIngredients(recipeId).then((data) => {
-            //console.log("Fetched ingredients:", data);
-            setIngredients(data);
-        });
-        getDirections(recipeId).then((data) => {
-            //console.log("Fetched directions:", data);
-            setDirections(data);
-        });
+        getIngredients(recipeId).then(setIngredients);
+        getDirections(recipeId).then(setDirections);
     }, [recipeId]);
 
     if (!recipeDetail) {
-        //console.log(`Still waiting for recipe detail with ID: ${recipeId}`);
         return (
             <SafeAreaView style={styles.container}>
                 <Text style={{ textAlign: "center", marginTop: 20 }}>
@@ -42,13 +28,11 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
         );
     }
 
-    // If directions is a string, split it into an array of steps.
     const steps =
         recipeDetail.directions && typeof recipeDetail.directions === "string"
             ? recipeDetail.directions.split("\n")
             : recipeDetail.directions || [];
 
-    // If ingredients are stored as an object (map), convert them to an array
     const ingredientEntries =
         recipeDetail.ingredients && typeof recipeDetail.ingredients === "object"
             ? Object.entries(recipeDetail.ingredients)
@@ -88,50 +72,118 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
                             {recipeDetail.description || "No description available."}
                         </Text>
 
-                        <View style={styles.infoRow}>
-                            <Text style={styles.infoText}>Servings: {recipeDetail.servings}</Text>
-                            <Text style={styles.infoText}>
-                                Cost: {recipeDetail.estimatedTotalCost}
-                            </Text>
+                    {/* Time & Cost Section*/}
+                    <View style={styles.infoSection}>
+                        <View style={styles.infoContent}>
+                            <View style={styles.infoGrid}>
+                                <View style={styles.infoBlock}>
+                                    <Text style={styles.infoLabel}>Prep Time:</Text>
+                                    <Text style={styles.infoValue}>{recipeDetail.prepTime}</Text>
+                                </View>
+                                <View style={styles.infoBlock}>
+                                    <Text style={styles.infoLabel}>Cook Time:</Text>
+                                    <Text style={styles.infoValue}>{recipeDetail.cookTime}</Text>
+                                </View>
+                                <View style={styles.infoBlock}>
+                                    <Text style={styles.infoLabel}>Total Time:</Text>
+                                    <Text style={styles.infoValue}>{recipeDetail.totalTime}</Text>
+                                </View>
+                            </View>
+
+                            <View style={styles.infoGrid}>
+                                <View style={styles.infoBlock}>
+                                    <Text style={styles.infoLabel}>Servings:</Text>
+                                    <Text style={styles.infoValue}>{recipeDetail.servings}</Text>
+                                </View>
+                                <View style={styles.infoBlock}>
+                                    <Text style={styles.infoLabel}>Est. Cost:</Text>
+                                    <Text style={styles.infoValue}>{recipeDetail.estimatedTotalCost}</Text>
+                                </View>
+                            </View>
                         </View>
+                    </View>
 
-                        <Text style={styles.infoText}>Calories: {recipeDetail.calories} g</Text>
-                        <Text style={styles.infoText}>
-                            Prep: {recipeDetail.prepTime} | Cook: {recipeDetail.cookTime}
-                        </Text>
-                        <Text style={styles.infoText}>
-                            Fat: {recipeDetail.fat} | Carbs: {recipeDetail.carbs} | Protein:{" "}
-                            {recipeDetail.protein}
-                        </Text>
+                    {/* Nutrition Section*/}
+                    <View style={styles.infoSection}>
+                        <View style={styles.infoContent}>
+                            <View style={styles.infoGrid}>
+                                <View style={styles.infoBlock}>
+                                    <Text style={styles.infoLabel}>Calories:</Text>
+                                    <Text style={styles.infoValue}>{recipeDetail.calories || "g"}</Text>
+                                </View>
+                                <View style={styles.infoBlock}>
+                                    <Text style={styles.infoLabel}>Fat:</Text>
+                                    <Text style={styles.infoValue}>{recipeDetail.fat}</Text>
+                                </View>
+                                <View style={styles.infoBlock}>
+                                    <Text style={styles.infoLabel}>Carbs:</Text>
+                                    <Text style={styles.infoValue}>{recipeDetail.carbs}</Text>
+                                </View>
+                                <View style={styles.infoBlock}>
+                                    <Text style={styles.infoLabel}>Protein:</Text>
+                                    <Text style={styles.infoValue}>{recipeDetail.protein}</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
 
-                        <Text style={styles.sectionHeader}>Notes:</Text>
-                        <Text style={styles.notesText}>
-                            {recipeDetail.notes || "No additional notes."}
-                        </Text>
-
+                    <View style={styles.sectionContainer}>
                         <Text style={styles.sectionHeader}>Ingredients:</Text>
                         {ingredientEntries.length > 0 ? (
                             ingredientEntries.map(([key, value]) => (
-                                <Text key={key} style={styles.ingredientText}>
-                                    {parseInt(key, 10) + 1}.{" "}
-                                    {typeof value === "string" ? value : "Reference"}
-                                </Text>
+                                <View key={key} style={styles.ingredientItem}>
+                                    <Text style={styles.bullet}>•</Text>
+                                    <Text style={styles.ingredientText}>
+                                        {typeof value === "string" ? value : "Reference"}
+                                    </Text>
+                                </View>
+
                             ))
                         ) : (
                             <Text style={styles.ingredientText}>No ingredients available.</Text>
                         )}
+                    </View>
 
+                    <View style={styles.sectionContainer}>
                         <Text style={styles.sectionHeader}>Directions:</Text>
                         {steps.length > 0 ? (
                             steps.map((step, index) => (
-                                <Text key={index} style={styles.directionsText}>
-                                    {index + 1}. {step}
-                                </Text>
+                                <View key={index} style={styles.directionItem}>
+                                    <Text style={styles.stepNumber}>{index + 1}.</Text>
+                                    <Text style={styles.directionsText}>{step}</Text>
+                                </View>
                             ))
                         ) : (
                             <Text style={styles.directionsText}>No directions available.</Text>
-                        )}
+                         )}
+                    </View>
 
+
+                        <View style={styles.sectionContainer}>
+                            <Text style={styles.sectionHeader}>Pricing Guide:</Text>
+                            {ingredientEntries.length > 0 ? (
+                                ingredientEntries.map(([key, value]) => (
+                                    <View key={key} style={styles.pricingItem}>
+                                        <Text style={styles.bullet}>•</Text>
+                                        <Text style={styles.ingredientPricing}>
+                                            {recipeDetail.ingredientCosts[key]}
+                                        </Text>
+                                    </View>
+                                ))
+                            ) : (
+                                <Text style={styles.ingredientPricing}>
+                                    No ingredients pricing guide available.
+                                </Text>
+                            )}
+                        </View>
+
+                        <View style={styles.sectionContainer}>
+                            <Text style={styles.sectionHeader}>Notes:</Text>
+                            <Text style={styles.notesText}>
+                                {recipeDetail.notes || "No additional notes."}
+                            </Text>
+                        </View>
+                        
                         <View className="mt-10" />
                         <Button
                             icon="magnify"
@@ -142,22 +194,7 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
                         </Button>
                         <View className="mt-10" />
 
-                        <Text style={styles.sectionHeader}>Pricing Guide:</Text>
-                        {ingredientEntries.length > 0 ? (
-                            ingredientEntries.map(([key, value]) => (
-                                <Text key={key} style={styles.ingredientPricing}>
-                                    {/* {key}: {typeof value === "string" ? value : "Reference"} */}
-                                    {recipeDetail.ingredientCosts[key]}
-                                    {/* {recipeDetail.ingredientCosts} */}
-                                </Text>
-                            ))
-                        ) : (
-                            <Text style={styles.ingredientText}>
-                                No ingredients pricing guide available.
-                            </Text>
-                        )}
-
-                        <View style={{ marginBottom: 250 }} />
+                        <View style={{ marginBottom: 100 }} />
                     </View>
                 </ScrollView>
             </View>
@@ -188,10 +225,18 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
+    // ============ CONTAINER & LAYOUT ============
+
     container: {
         flex: 1,
         marginTop: StatusBar.currentHeight
     },
+    content: {
+        padding: 16
+    },
+
+    // ============ TOP BAR ============
+
     topBar: {
         flexDirection: "row",
         justifyContent: "center",
@@ -206,61 +251,132 @@ const styles = StyleSheet.create({
         height: 40,
         resizeMode: "contain"
     },
+
+    // ============ TITLE & HEADERS ============
+
     recipeTitle: {
+        borderBottomWidth: 1,
+        borderColor: "#BFBFBF",
         fontWeight: "bold",
-        color: "#467e53",
+        color: "#3A4E36",
         fontFamily: "serif",
         fontSize: 22,
-        padding: 8,
+        paddingVertical: 10,
         textAlign: "center"
     },
+    sectionHeader: {
+        color: "#31482B",
+        fontSize: 18,
+        fontWeight: "bold",
+        marginBottom: 6,
+        paddingHorizontal: 4
+    },
+
+    // ============ IMAGE ============
+
     imageContainer: {
-        backgroundColor: "#467e53",
+        backgroundColor: "transparent",
         alignItems: "center",
-        padding: 8
+        paddingVertical: 8
     },
     recipeDetailImage: {
         width: 400,
         height: 225,
         borderRadius: 10
     },
-    content: {
-        padding: 16
-    },
+
+    // ============ CATEGORY & SUMMARY ============
+
     categoryRating: {
-        color: "#467e53",
+        borderBottomWidth: 1,
+        borderColor: "#BFBFBF",
+        color: "#31482B",
         fontWeight: "bold",
-        marginBottom: 6,
-        textAlign: "center"
+        textAlign: "center",
+        paddingVertical: 10
     },
     summary: {
+        borderBottomWidth: 1,
+        borderColor: "#BFBFBF",
+        paddingVertical: 10,
         color: "#467e53",
         fontFamily: "serif",
         fontSize: 16,
-        marginBottom: 10,
         textAlign: "center"
     },
-    infoRow: {
+
+    // ============ INFO SECTION ============
+
+    infoSection: {
+        borderBottomWidth: 1,
+        borderColor: "#BFBFBF",
+        marginVertical: 0,
+        width: "100%",
+        alignSelf: "center"
+    },
+    infoContent: {
+        paddingHorizontal: 12
+    },
+    infoGrid: {
         flexDirection: "row",
         justifyContent: "space-around",
-        marginVertical: 10
+        flexWrap: "wrap",
+        paddingVertical: 8
     },
-    infoText: {
-        color: "#467e53",
+    infoBlock: {
+        alignItems: "center",
+        minWidth: 80,
+        marginVertical: 4
+    },
+    infoLabel: {
         fontWeight: "bold",
+        color: "#31482B",
+        fontSize: 14,
+        marginBottom: 2
+    },
+    infoValue: {
+        color: "#467e53",
+        fontSize: 14
+    },
+
+    // ============ NOTES ============
+
+    notesText: {
+        paddingVertical: 8,
+        color: "#467e53",
+        fontFamily: "serif",
+        fontSize: 16,
         textAlign: "center"
     },
-    sectionHeader: {
-        color: "#467e53",
-        fontSize: 18,
-        fontWeight: "bold",
-        marginVertical: 8
+
+    // ============ PRICING ============
+
+    pricingItem: {
+        flexDirection: "row",
+        alignItems: "flex-start",
+        paddingLeft: 16,
+        marginBottom: 4
+    },
+    
+    // ============ INGREDIENTS ============
+
+    ingredientItem: {
+        flexDirection: "row",
+        alignItems: "flex-start",
+        paddingLeft: 16,
+        marginBottom: 4
+    },
+    bullet: {
+        color: "#31482B",
+        fontSize: 16,
+        lineHeight: 22,
+        marginRight: 6
     },
     ingredientText: {
         color: "#467e53",
         fontFamily: "serif",
         fontSize: 16,
-        marginBottom: 4
+        flexShrink: 1
     },
     ingredientPricing: {
         color: "#467e53",
@@ -268,29 +384,52 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 4
     },
+
+    // ============ DIRECTIONS ============
+
+    directionItem: {
+        flexDirection: "row",
+        alignItems: "flex-start",
+        paddingLeft: 16,
+        marginBottom: 6
+    },
+    stepNumber: {
+        fontWeight: "bold",
+        color: "#31482B",
+        fontSize: 16,
+        lineHeight: 22,
+        marginRight: 6
+    },
     directionsText: {
         color: "#467e53",
         fontFamily: "serif",
         fontSize: 16,
-        marginBottom: 6
+        flexShrink: 1
     },
-    notesText: {
-        color: "#467e53",
-        fontFamily: "serif",
-        fontSize: 16,
-        marginBottom: 10,
-        textAlign: "center"
+
+    // ============ SECTION WRAPPER ============
+
+    sectionContainer: {
+        borderBottomWidth: 1,
+        borderColor: "#BFBFBF",
+        paddingBottom: 10,
+        marginBottom: 0,
+        marginVertical: 10,
+        width: "100%",
+        alignSelf: "center"
     },
+
+    // ============ BOTTOM BAR ============
+
     bottomBar: {
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        paddingVertical: 0,
         backgroundColor: "#7FA184",
         borderTopColor: "#5E7147",
         position: "absolute",
         bottom: 0,
         left: 0,
         right: 0
-    }
+    },
 });

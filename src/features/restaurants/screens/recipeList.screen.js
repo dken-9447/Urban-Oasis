@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
     StatusBar,
     SafeAreaView,
@@ -7,27 +7,67 @@ import {
     View,
     Image,
     Pressable,
-    ScrollView
+    ScrollView,
+    Animated
 } from "react-native";
 import { TextInput, IconButton } from "react-native-paper";
 import { getRecipeList } from "../components/data";
 
+const RecipeCard = ({ item, navigation }) => {
+    const scaleAnim = useRef(new Animated.Value(1)).current;
+
+    const handlePressIn = () => {
+        Animated.spring(scaleAnim, {
+            toValue: 0.97,
+            useNativeDriver: true,
+            friction: 5
+        }).start();
+    };
+
+    const handlePressOut = () => {
+        Animated.spring(scaleAnim, {
+            toValue: 1,
+            useNativeDriver: true,
+            friction: 5
+        }).start();
+    };
+
+    return (
+        <Pressable
+            onPressIn={handlePressIn}
+            onPressOut={handlePressOut}
+            onPress={() => navigation.navigate("RecipeDetail", { recipeId: item.id })}
+        >
+            <Animated.View style={[styles.item, { transform: [{ scale: scaleAnim }] }]}>
+                <View style={styles.itemRow}>
+                    <View style={styles.imageContainer}>
+                        <Image
+                            source={{ uri: item.imageUrl || "https://placehold.co/400" }}
+                            style={styles.recipeThumbImage}
+                        />
+                    </View>
+                    <View style={styles.itemContent}>
+                        <Text style={styles.itemTitle}>{item.title}</Text>
+                        <View style={styles.itemDetails}>
+                            <Text style={styles.detailText}>{item.category}</Text>
+                            <Text style={styles.detailText}>{item.rating}</Text>
+                            <Text style={styles.detailText}>{item.totalTime}</Text>
+                        </View>
+                    </View>
+                </View>
+            </Animated.View>
+        </Pressable>
+    );
+};
+
 export const RecipeListScreen = ({ navigation }) => {
     const [recipeList, setRecipeList] = useState([]);
 
-    // Fetch recipes when the component mounts
     useEffect(() => {
         getRecipeList().then((data) => {
             setRecipeList(data);
         });
     }, []);
-
-    // Log each recipe's title and imageUrl for debugging
-    useEffect(() => {
-        recipeList.forEach((item) => {
-            //console.log("Recipe item:", item.title, item.imageUrl);
-        });
-    }, [recipeList]);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -76,32 +116,7 @@ export const RecipeListScreen = ({ navigation }) => {
 
                 <ScrollView>
                     {recipeList.map((item) => (
-                        <Pressable
-                            key={item.id}
-                            onPress={() =>
-                                navigation.navigate("RecipeDetail", { recipeId: item.id })
-                            }>
-                            <View style={styles.item}>
-                                <View style={styles.itemRow}>
-                                    <View style={styles.imageContainer}>
-                                        <Image
-                                            source={{
-                                                uri: item.imageUrl || "https://placehold.co/400"
-                                            }}
-                                            style={styles.recipeThumbImage}
-                                        />
-                                    </View>
-                                    <View style={styles.itemContent}>
-                                        <Text style={styles.itemTitle}>{item.title}</Text>
-                                        <View style={styles.itemDetails}>
-                                            <Text style={styles.detailText}>{item.category}</Text>
-                                            <Text style={styles.detailText}>{item.rating}</Text>
-                                            <Text style={styles.detailText}>{item.totalTime}</Text>
-                                        </View>
-                                    </View>
-                                </View>
-                            </View>
-                        </Pressable>
+                        <RecipeCard key={item.id} item={item} navigation={navigation} />
                     ))}
                 </ScrollView>
             </View>
@@ -217,7 +232,7 @@ const styles = StyleSheet.create({
         marginBottom: 6,
         maxWidth: 250,
         fontWeight: "bold",
-        color: "#467e53",
+        color: "#705E4E",
         fontSize: 18,
         fontFamily: "serif"
     },
@@ -233,7 +248,7 @@ const styles = StyleSheet.create({
         minWidth: "10%",
         maxWidth: "45%",
         marginBottom: 6,
-        color: "#467e53",
+        color: "#705E4E",
         fontWeight: "600",
         backgroundColor: "#ECECEC",
         paddingHorizontal: 4,
@@ -250,7 +265,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        paddingVertical: 0,
         backgroundColor: "#7FA184",
         borderTopColor: "#5E7147",
         position: "absolute",

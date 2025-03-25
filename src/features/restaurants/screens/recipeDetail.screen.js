@@ -137,6 +137,7 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
                                         {typeof value === "string" ? value : "Reference"}
                                     </Text>
                                 </View>
+
                             ))
                         ) : (
                             <Text style={styles.ingredientText}>No ingredients available.</Text>

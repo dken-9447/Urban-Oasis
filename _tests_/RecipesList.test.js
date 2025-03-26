@@ -32,7 +32,8 @@ jest.mock("../src/features/restaurants/components/data", () => ({
             notes: "Quick seafood dish, low-carb option with zucchini noodles",
             ingredientCosts: "$8.00 per pound",
             servings: "4",
-            directions: "Preheat oven to 350 degrees F"
+            directions: "Preheat oven to 350 degrees F",
+            caloriesGrams: "400g"
         },
         {
             id: "3",
@@ -52,7 +53,8 @@ jest.mock("../src/features/restaurants/components/data", () => ({
             notes: "Generally well liked by everyone!",
             ingredientCosts: "$2.25 per pound",
             servings: "2",
-            directions: "Heat oil in wok until very hot."
+            directions: "Heat oil in wok until very hot.",
+            caloriesGrams: "525g"
         }
     ])
 }));

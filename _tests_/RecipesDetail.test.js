@@ -32,7 +32,8 @@ jest.mock("../src/features/restaurants/components/data", () => ({
             notes: "Quick seafood dish, low-carb option with zucchini noodles",
             ingredientCosts: "$8.00 per pound",
             servings: "4",
-            directions: "Preheat oven to 350 degrees F"
+            directions: "Preheat oven to 350 degrees F",
+            caloriesGrams: "600g"
         }
     ])
 }));
@@ -61,6 +62,7 @@ describe("RecipesDetail Component", () => {
             expect(screen.getByText(/8.00 per pound/)).toBeTruthy(); // Ingredient Cost
             expect(screen.getByText(/4/)).toBeTruthy(); // Servings
             expect(screen.getByText(/Preheat oven to 350 degrees F/)).toBeTruthy(); // Directions
+            expect(screen.getByText(/600g/)).toBeTruthy(); // Calorie Grams
         });
     });
 });

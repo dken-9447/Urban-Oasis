@@ -43,7 +43,7 @@ export default function RecipesDetail({}) {
                         Cost: {item.estimatedTotalCost}
                     </Text>
                     <Text>
-                        Calories: {item.calories}
+                        Calories: {item.caloriesGrams}
                     </Text>
                     <Text>
                         Prep: {item.prepTime} | Cook: {item.cookTime}

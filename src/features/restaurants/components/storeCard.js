@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import StarRating from "react-native-star-svg-rating";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -51,55 +52,61 @@ export default function StoreCard({
 
   return (
     <TouchableWithoutFeedback
-      onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
-      onPress={handleNavigate}
+    onPressIn={handlePressIn}
+    onPressOut={handlePressOut}
+    onPress={handleNavigate}
     >
-      <Animated.View style={[styles.wrapper, { transform: [{ scale: scaleAnim }] }]}>
+    <Animated.View style={[styles.wrapper, { transform: [{ scale: scaleAnim }] }]}>
         <View style={styles.card}>
-          <Image source={{ uri: image }} style={styles.image} resizeMode="cover" />
+        <Image source={{ uri: image }} style={styles.image} resizeMode="cover" />
 
-          <View style={styles.details}>
+        <View style={styles.details}>
             <View style={styles.titleRow}>
-              <View style={styles.titleWrapper}>
+            <View style={styles.titleWrapper}>
                 <Text style={styles.title}>{title}</Text>
-              </View>
-              <View style={styles.ratingBox}>
+            </View>
+            <View style={styles.ratingBox}>
                 <StarRating
-                  rating={Number(userRating)}
-                  maxStars={5}
-                  starSize={24}
-                  color="#fdd835"
-                  borderColor="#fdd835"
-                  enableHalfStar
-                  starStyle={{ marginHorizontal: 1 }}
+                rating={Number(userRating)}
+                maxStars={5}
+                starSize={25}
+                color="#fdd835"
+                borderColor="#fdd835"
+                enableHalfStar
+                starStyle={{ marginHorizontal: 1 }}
                 />
-              </View>
+            </View>
             </View>
 
             {typeOfStore && <Text style={styles.type}>{typeOfStore}</Text>}
 
             {description && (
-              <Text style={styles.description} numberOfLines={3}>
+            <Text style={styles.description} numberOfLines={3}>
                 {description}
-              </Text>
+            </Text>
             )}
 
-            <Text style={styles.address}>📍 {address}</Text>
+            {/* Address now links to Google Maps */}
+            {googleMapsLink && (
+            <TouchableWithoutFeedback onPress={() => Linking.openURL(googleMapsLink)}>
+                <View style={styles.iconRow}>
+                <MaterialCommunityIcons name="map-marker" size={16} color="#705E4E" style={styles.icon} />
+                <Text style={styles.link}>{address}</Text>
+                </View>
+            </TouchableWithoutFeedback>
+            )}
 
             {website && (
-              <Text style={styles.link} onPress={() => Linking.openURL(website)}>
-                🌐 Visit Website
-              </Text>
+            <TouchableWithoutFeedback onPress={() => Linking.openURL(website)}>
+                <View style={styles.iconRow}>
+                <MaterialCommunityIcons name="web" size={16} color="#705E4E" style={styles.icon} />
+                <Text style={styles.link}>Visit Website</Text>
+                </View>
+            </TouchableWithoutFeedback>
             )}
-            {googleMapsLink && (
-              <Text style={styles.link} onPress={() => Linking.openURL(googleMapsLink)}>
-                🗺️ Get Directions
-              </Text>
-            )}
-          </View>
         </View>
-      </Animated.View>
+        </View>
+    </Animated.View>
     </TouchableWithoutFeedback>
   );
 }
@@ -162,14 +169,22 @@ const styles = StyleSheet.create({
     color: "#444",
     marginBottom: 10
   },
+  iconRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 6
+  },
+  icon: {
+    marginRight: 6
+  },
   address: {
     fontSize: 13,
     color: "#444",
-    marginBottom: 8
+    flexShrink: 1
   },
   link: {
     fontSize: 14,
     color: "#1E90FF",
-    marginBottom: 4
+    flexShrink: 1
   }
 });

@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { TextInput, IconButton } from "react-native-paper";
 import { getRecipeList } from "../components/data";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const RecipeCard = ({ item, navigation }) => {
     const scaleAnim = useRef(new Animated.Value(1)).current;
@@ -111,8 +112,17 @@ export const RecipeListScreen = ({ navigation }) => {
                         />
                     </View>
                 </View>
-
-                <Text style={styles.headerText}>Recipes</Text>
+                
+                {/* Header */}
+                <View style={styles.headerRow}>
+                    <MaterialCommunityIcons 
+                        name="silverware-fork-knife" 
+                        size={28} 
+                        color="#705E4E" 
+                        style={{ marginRight: 8 }} 
+                        />
+                    <Text style={styles.headerText}>Recipes</Text>
+                </View>
 
                 <ScrollView>
                     {recipeList.map((item) => (
@@ -196,12 +206,16 @@ const styles = StyleSheet.create({
         color: "#A7A7A7",
         fontSize: 14
     },
+    headerRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginBottom: 12
+    },
     headerText: {
         fontSize: 24,
         fontFamily: "serif",
         fontWeight: "bold",
-        color: "#467e53",
-        marginBottom: 12
+        color: "#705E4E"
     },
     item: {
         padding: 10,

@@ -12,6 +12,7 @@ import { TextInput, IconButton } from "react-native-paper";
 import { Image } from "react-native";
 import { useColorScheme } from "nativewind";
 import StoresList from "../components/storeList";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export const StoreListScreen = ({ navigation }) => {
     const { colorScheme, toggleColorScheme } = useColorScheme();
@@ -59,7 +60,15 @@ export const StoreListScreen = ({ navigation }) => {
                 </View>
 
                 {/* Header */}
-                <Text style={styles.headerText}>Grocery Stores</Text>
+                <View style={styles.headerRow}>
+                    <MaterialCommunityIcons
+                        name="basket"
+                        size={26}
+                        color="#705E4E"
+                        style={{ marginRight: 8 }}
+                    />
+                    <Text style={styles.headerText}>Grocery Stores</Text>
+                </View>
 
                 {/* Main list of stores */}
                 <View className="flex-1 items-center justify-center">
@@ -139,13 +148,17 @@ const styles = StyleSheet.create({
         color: "#A7A7A7",
         fontSize: 14
     },
+    headerRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        paddingHorizontal: 16,
+        marginBottom: 12
+    },
     headerText: {
         fontSize: 24,
         fontFamily: "serif",
         fontWeight: "bold",
-        color: "#467e53",
-        marginBottom: 12,
-        paddingHorizontal: 16
+        color: "#705E4E"
     },
     bottomBar: {
         flexDirection: "row",

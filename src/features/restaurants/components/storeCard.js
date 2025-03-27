@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import StarRating from "react-native-star-svg-rating";
+import { useState } from "react";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -25,8 +26,14 @@ export default function StoreCard({
   website,
   googleMapsLink
 }) {
+<<<<<<< HEAD
   const navigation = useNavigation();
   const scaleAnim = React.useRef(new Animated.Value(1)).current;
+=======
+    const navigation = useNavigation();
+    //console.log("Storecard received id: ", id);
+    //const [rating, setRating] = useState(Number(userRating));
+>>>>>>> 3d0454c (Chore: Made changes to star rating so that it doesn't crash)
 
   const handlePressIn = () => {
     Animated.spring(scaleAnim, {
@@ -44,10 +51,27 @@ export default function StoreCard({
     }).start();
   };
 
+<<<<<<< HEAD
   const handleNavigate = () => {
     if (!id) return;
     navigation.navigate("StoreDetailScreen", { storeId: id });
   };
+=======
+                        {/* Star Rating */}
+                        <StarRating
+                            rating={Number(userRating)}
+                            maxStars={5}
+                            starSize={20}
+                            color="#fdd835"
+                            borderColor="#fdd835"
+                            enableHalfStar={true}
+                            onChange={() => {
+                                console.log("User Changed Rating");
+                                // setRating(newRating); // This will probably be implemented later for a user to set the rating.
+                            }}
+                        />
+                    </View>
+>>>>>>> 3d0454c (Chore: Made changes to star rating so that it doesn't crash)
 
   return (
     <TouchableWithoutFeedback

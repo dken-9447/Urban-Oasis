@@ -21,9 +21,9 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
     if (!recipeDetail) {
         return (
             <SafeAreaView style={styles.container}>
-                <Text style={{ textAlign: "center", marginTop: 20 }}>
-                    Please check the console for fetch logs.
-                </Text>
+                {<Text style={{ textAlign: "center", marginTop: 20 }}>
+                    ... loading data
+                </Text>}
             </SafeAreaView>
         );
     }
@@ -109,7 +109,7 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
                             <View style={styles.infoGrid}>
                                 <View style={styles.infoBlock}>
                                     <Text style={styles.infoLabel}>Calories:</Text>
-                                    <Text style={styles.infoValue}>{recipeDetail.calories || "g"}</Text>
+                                    <Text style={styles.infoValue}>{recipeDetail.caloriesGrams}g</Text>
                                 </View>
                                 <View style={styles.infoBlock}>
                                     <Text style={styles.infoLabel}>Fat:</Text>

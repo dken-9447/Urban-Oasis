@@ -1,97 +1,175 @@
 import * as React from "react";
-import { View, Text, Image, TouchableOpacity, Linking } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableWithoutFeedback,
+  Linking,
+  StyleSheet,
+  Dimensions,
+  Animated
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import StarRating from "react-native-star-svg-rating";
 
+const screenWidth = Dimensions.get("window").width;
+
 export default function StoreCard({
-    id,
-    image,
-    title,
-    address,
-    description,
-    typeOfStore,
-    userRating,
-    website,
-    googleMapsLink
+  id,
+  image,
+  title,
+  address,
+  description,
+  typeOfStore,
+  userRating,
+  website,
+  googleMapsLink
 }) {
-    const navigation = useNavigation();
-    //console.log("Storecard received id: ", id);
+  const navigation = useNavigation();
+  const scaleAnim = React.useRef(new Animated.Value(1)).current;
 
-    return (
-        <TouchableOpacity
-            onPress={() => {
-                //console.log("🔄 Navigating to StoreDetailScreen with id:", id);
-                if (!id) {
-                    console.error("❌ Error: StoreCard received an undefined id!");
-                    return;
-                }
-                navigation.navigate("StoreDetailScreen", { storeId: id });
-            }}>
-            <View className="w-full bg-white dark:bg-gray-50/100 rounded-3xl p-5 my-5">
-                {/* Store Image */}
-                <View className="bg-white rounded-xl">
-                    <Image
-                        source={{ uri: image }}
-                        className="w-full h-72"
-                        resizeMode="cover"
-                        style={{ borderRadius: 20 }}
-                    />
-                </View>
+  const handlePressIn = () => {
+    Animated.spring(scaleAnim, {
+      toValue: 0.97,
+      useNativeDriver: true,
+      friction: 5
+    }).start();
+  };
 
-                {/* Store Details */}
-                <View className="mt-5">
-                    {/* Store Name & Rating */}
-                    <View
-                        style={{
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            flexWrap: "nowrap"
-                        }}>
-                        <Text
-                            className="text-xl font-extrabold dark:text-white my-3"
-                            style={{ flex: 1, flexShrink: 1, maxWidth: "80%" }}>
-                            {title}
-                        </Text>
+  const handlePressOut = () => {
+    Animated.spring(scaleAnim, {
+      toValue: 1,
+      useNativeDriver: true,
+      friction: 5
+    }).start();
+  };
 
-                        {/* Star Rating */}
-                        <StarRating
-                            rating={Number(userRating)}
-                            maxStars={5}
-                            starSize={20}
-                            color="#fdd835"
-                            borderColor="#fdd835"
-                            enableHalfStar={true}
-                        />
-                    </View>
+  const handleNavigate = () => {
+    if (!id) return;
+    navigation.navigate("StoreDetailScreen", { storeId: id });
+  };
 
-                    <Text className="text-lg font-semibold text-black/70 mb-3">{typeOfStore}</Text>
-                    <Text numberOfLines={2} className="text-black/60 dark:text-white/70">
-                        {description}
-                    </Text>
+  return (
+    <TouchableWithoutFeedback
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
+      onPress={handleNavigate}
+    >
+      <Animated.View style={[styles.wrapper, { transform: [{ scale: scaleAnim }] }]}>
+        <View style={styles.card}>
+          <Image source={{ uri: image }} style={styles.image} resizeMode="cover" />
 
-                    {/* Address */}
-                    <Text className="text-sm mt-3">📍 {address}</Text>
-
-                    {/* Website Link */}
-                    {website && (
-                        <TouchableOpacity onPress={() => Linking.openURL(website)}>
-                            <Text className="text-blue-600 dark:text-blue-400 mt-2">
-                                🌐 Visit Website
-                            </Text>
-                        </TouchableOpacity>
-                    )}
-
-                    {/* Google Maps Link */}
-                    {googleMapsLink && (
-                        <TouchableOpacity onPress={() => Linking.openURL(googleMapsLink)}>
-                            <Text className="text-blue-600 dark:text-blue-400 mt-2">
-                                🗺️ Get Directions
-                            </Text>
-                        </TouchableOpacity>
-                    )}
-                </View>
+          <View style={styles.details}>
+            <View style={styles.titleRow}>
+              <View style={styles.titleWrapper}>
+                <Text style={styles.title}>{title}</Text>
+              </View>
+              <View style={styles.ratingBox}>
+                <StarRating
+                  rating={Number(userRating)}
+                  maxStars={5}
+                  starSize={24}
+                  color="#fdd835"
+                  borderColor="#fdd835"
+                  enableHalfStar
+                  starStyle={{ marginHorizontal: 1 }}
+                />
+              </View>
             </View>
-        </TouchableOpacity>
-    );
+
+            {typeOfStore && <Text style={styles.type}>{typeOfStore}</Text>}
+
+            {description && (
+              <Text style={styles.description} numberOfLines={3}>
+                {description}
+              </Text>
+            )}
+
+            <Text style={styles.address}>📍 {address}</Text>
+
+            {website && (
+              <Text style={styles.link} onPress={() => Linking.openURL(website)}>
+                🌐 Visit Website
+              </Text>
+            )}
+            {googleMapsLink && (
+              <Text style={styles.link} onPress={() => Linking.openURL(googleMapsLink)}>
+                🗺️ Get Directions
+              </Text>
+            )}
+          </View>
+        </View>
+      </Animated.View>
+    </TouchableWithoutFeedback>
+  );
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    width: screenWidth,
+    alignItems: "center",
+    marginBottom: 20
+  },
+  card: {
+    width: "92%",
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 4
+  },
+  image: {
+    width: "100%",
+    height: 180
+  },
+  details: {
+    padding: 16
+  },
+  titleRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    gap: 8,
+    marginBottom: 6
+  },
+  titleWrapper: {
+    flex: 1
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#705E4E",
+    flexWrap: "wrap"
+  },
+  ratingBox: {
+    backgroundColor: "transparent",
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderColor: "transparent",
+    padding: 4,
+    borderBottomLeftRadius: 4
+  },
+  type: {
+    fontSize: 14,
+    color: "#666",
+    marginBottom: 6
+  },
+  description: {
+    fontSize: 14,
+    color: "#444",
+    marginBottom: 10
+  },
+  address: {
+    fontSize: 13,
+    color: "#444",
+    marginBottom: 8
+  },
+  link: {
+    fontSize: 14,
+    color: "#1E90FF",
+    marginBottom: 4
+  }
+});

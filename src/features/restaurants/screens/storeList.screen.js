@@ -1,6 +1,14 @@
 import React, { useState } from "react";
-import { StatusBar, SafeAreaView, StyleSheet, View, Keyboard, Pressable } from "react-native";
-import { TextInput, IconButton, Switch } from "react-native-paper";
+import {
+    StatusBar,
+    SafeAreaView,
+    StyleSheet,
+    View,
+    Keyboard,
+    Pressable,
+    Text
+} from "react-native";
+import { TextInput, IconButton } from "react-native-paper";
 import { Image } from "react-native";
 import { useColorScheme } from "nativewind";
 import StoresList from "../components/storeList";
@@ -19,66 +27,41 @@ export const StoreListScreen = ({ navigation }) => {
                     />
                 </View>
 
-                <View
-                    className="flex-row items-center mt-3 mb-3 w-full px-4"
-                    style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between"
-                    }}>
-                    {/* Search Box */}
-                    <View
-                        style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            flex: 1,
-                            backgroundColor: "#FFFFFF",
-                            borderColor: "A7A7A7",
-                            borderWidth: 0.25,
-                            borderRadius: 25,
-                            paddingHorizontal: 5,
-                            paddingVertical: 2
-                        }}>
+                {/* Search and Filter Row */}
+                <View style={styles.searchRow}>
+                    <View style={styles.searchContainer}>
                         <TextInput
                             placeholder="Search grocery stores"
                             placeholderTextColor="#A7A7A7"
                             mode="flat"
                             underlineColor="transparent"
                             activeUnderlineColor="transparent"
-                            theme={{
-                                colors: { primary: "#467e53", text: "black" }
-                            }}
                             keyboardType="default"
-                            cursorColor="black"
-                            style={{
-                                flex: 1,
-                                backgroundColor: "transparent",
-                                color: "black",
-                                fontSize: 14
-                            }}
+                            cursorColor="#A7A7A7"
+                            style={styles.recipeSearch}
                             editable={true}
                         />
-
-                        {/* Magnifying Glass Icon*/}
                         <IconButton
                             icon="magnify"
                             size={25}
                             iconColor="#A7A7A7"
-                            onPress={() => console.log("Search button pressed")}
+                            onPress={() => console.log("Store-search pressed")}
                         />
                     </View>
-
-                    {/* Filter Icon */}
-                    <IconButton
-                        icon="filter-variant"
-                        size={28}
-                        iconColor="black"
-                        onPress={() => console.log("Filter icon pressed")}
-                        style={{ marginLeft: 15 }}
-                    />
+                    <View style={styles.filterButton}>
+                        <IconButton
+                            icon="filter-variant"
+                            size={45}
+                            iconColor="#7FA184"
+                            onPress={() => console.log("Store-filter pressed")}
+                        />
+                    </View>
                 </View>
 
-                {/** Main list of stores */}
+                {/* Header */}
+                <Text style={styles.headerText}>Grocery Stores</Text>
+
+                {/* Main list of stores */}
                 <View className="flex-1 items-center justify-center">
                     <StoresList />
                 </View>
@@ -127,6 +110,42 @@ const styles = StyleSheet.create({
         width: 150,
         height: 40,
         resizeMode: "contain"
+    },
+    searchRow: {
+        flexDirection: "row",
+        marginBottom: 20,
+        paddingHorizontal: 16,
+        marginTop: 16
+    },
+    searchContainer: {
+        flexDirection: "row",
+        flex: 3,
+        borderWidth: 2,
+        borderColor: "#A7A7A7",
+        backgroundColor: "#FFFFFF",
+        borderRadius: 25,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        marginRight: 10
+    },
+    filterButton: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    recipeSearch: {
+        flex: 1,
+        backgroundColor: "transparent",
+        color: "#A7A7A7",
+        fontSize: 14
+    },
+    headerText: {
+        fontSize: 24,
+        fontFamily: "serif",
+        fontWeight: "bold",
+        color: "#467e53",
+        marginBottom: 12,
+        paddingHorizontal: 16
     },
     bottomBar: {
         flexDirection: "row",

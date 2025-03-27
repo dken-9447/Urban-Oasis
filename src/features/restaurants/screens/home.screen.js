@@ -7,13 +7,17 @@ import {
     View,
     Keyboard,
     Pressable,
-    Alert
+    Alert,
+    KeyboardAvoidingView,
+    Platform
 } from "react-native";
 import { TextInput, IconButton } from "react-native-paper";
 import { Image } from "react-native";
 import * as Location from "expo-location";
 import { useNavigation } from "@react-navigation/native";
 import { GOOGLE_PLACES_API_KEY } from "@env";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { getCenter } from "geolib";
 
 const API_KEY = GOOGLE_PLACES_API_KEY;
 
@@ -87,105 +91,120 @@ export const HomeScreen = () => {
     };
 
     return (
-        <Pressable style={{ flex: 1 }} onPress={Keyboard.dismiss}>
-            <SafeAreaView style={styles.container}>
-                {/* Top Navigation Bar */}
-                <View style={styles.topBar}>
-                    <Image
-                        source={require("../../../../assets/urban-oasis-text-only.png")}
-                        style={styles.logo}
-                    />
-                </View>
-
-                {/* Logo and Description */}
-                <View className="flex-1 justify-center items-center">
-                    <Image
-                        source={require("../../../../assets/urban-oasis-transparent-bg.png")}
-                        className="w-40 h-40"
-                        resizeMode="contain"
-                    />
-                    <Text className="text-center text-2xl font-bold text-gray-800 mt-6">
-                        Welcome to the fresh side of life!
-                    </Text>
-                    <Text className="text-center text-base text-gray-700 mt-2 px-4">
-                        Find fresh produce nearby, explore budget-friendly recipes, and discover
-                        where to buy ingredients. Just enter your address!
-                    </Text>
-
-                    {/* Search Bar */}
-                    <View
-                        className="flex-row items-center mt-6 w-3/4 bg-[#EDD2BD] rounded-full px-4 py-2"
-                        style={{
-                            borderWidth: 2,
-                            borderColor: "#B99772",
-                            shadowColor: "#000",
-                            shadowOffset: { width: 0, height: 3 },
-                            shadowOpacity: 0.2,
-                            shadowRadius: 4,
-                            elevation: 4
-                        }}>
-                        <TextInput
-                            placeholder="Enter current address"
-                            placeholderTextColor="#8b6f47"
-                            mode="flat"
-                            underlineColor="transparent"
-                            activeUnderlineColor="transparent"
-                            theme={{ colors: { primary: "#467e53", text: "black" } }}
-                            value={address}
-                            onChangeText={setAddress}
-                            keyboardType="default"
-                            cursorColor="black"
-                            style={{
-                                flex: 1,
-                                backgroundColor: "transparent",
-                                color: "black",
-                                fontSize: 16
-                            }}
-                            editable={true}
-                        />
-                        <IconButton
-                            icon="magnify"
-                            size={30}
-                            iconColor="white"
-                            style={{
-                                backgroundColor: "#7FA184",
-                                borderRadius: 20,
-                                borderWidth: 2,
-                                borderColor: "#3B5C49",
-                                padding: 2
-                            }}
-                            onPress={handleSearch}
+        <SafeAreaView style={styles.container}>
+            <KeyboardAwareScrollView
+                contentContainerStyle={styles.scrollContainer}
+                enableOnAndroid
+                keyboardShouldPersistTaps="handled"
+                extraHeight={100}>
+                <Pressable style={{ flex: 1 }} onPress={Keyboard.dismiss}>
+                    {/* Top Navigation Bar */}
+                    <View style={styles.topBar}>
+                        <Image
+                            source={require("../../../../assets/urban-oasis-text-only.png")}
+                            style={styles.logo}
                         />
                     </View>
-                </View>
+                    {/* Logo and Description */}
+                    <View style={styles.content}>
+                        <Image
+                            source={require("../../../../assets/urban-oasis-transparent-bg.png")}
+                            className="w-40 h-40"
+                            resizeMode="contain"
+                        />
+                        <Text className="text-center text-2xl font-bold text-gray-800 mt-6">
+                            Welcome to the fresh side of life!
+                        </Text>
+                        <Text className="text-center text-base text-gray-700 mt-2 px-4">
+                            Find fresh produce nearby, explore budget-friendly recipes, and discover
+                            where to buy ingredients. Just enter your address!
+                        </Text>
+                        {/* Search Bar */}
+                        <View
+                            className="flex-row items-center mt-6 w-3/4 bg-[#EDD2BD] rounded-full px-4 py-2"
+                            style={{
+                                borderWidth: 2,
+                                borderColor: "#B99772",
+                                shadowColor: "#000",
+                                shadowOffset: { width: 0, height: 3 },
+                                shadowOpacity: 0.2,
+                                shadowRadius: 4,
+                                elevation: 4
+                            }}>
+                            <TextInput
+                                placeholder="Enter current address"
+                                placeholderTextColor="#8b6f47"
+                                mode="flat"
+                                underlineColor="transparent"
+                                activeUnderlineColor="transparent"
+                                theme={{ colors: { primary: "#467e53", text: "black" } }}
+                                value={address}
+                                onChangeText={setAddress}
+                                keyboardType="default"
+                                cursorColor="black"
+                                style={{
+                                    flex: 1,
+                                    backgroundColor: "transparent",
+                                    color: "black",
+                                    fontSize: 16
+                                }}
+                                editable={true}
+                            />
+                            <IconButton
+                                icon="magnify"
+                                size={30}
+                                iconColor="white"
+                                style={{
+                                    backgroundColor: "#7FA184",
+                                    borderRadius: 20,
+                                    borderWidth: 2,
+                                    borderColor: "#3B5C49",
+                                    padding: 2
+                                }}
+                                onPress={handleSearch}
+                            />
+                        </View>
+                    </View>
+                </Pressable>
+            </KeyboardAwareScrollView>
 
-                {/* Bottom Navigation */}
-                <View style={styles.bottomBar}>
-                    <IconButton
-                        icon="basket-outline"
-                        size={45}
-                        iconColor="white"
-                        onPress={() => navigation.navigate("StoresListScreen")}
-                    />
-                    <IconButton
-                        icon="home-outline"
-                        size={45}
-                        iconColor="#BCEDC3"
-                        onPress={() => navigation.navigate("Home")}
-                    />
-                    <IconButton
-                        icon="silverware-fork-knife"
-                        size={45}
-                        iconColor="white"
-                        onPress={() => navigation.navigate("RecipeList")}
-                    />
-                </View>
-            </SafeAreaView>
-        </Pressable>
+            {/* Bottom Navigation */}
+            <View style={styles.bottomBar}>
+                <IconButton
+                    icon="basket-outline"
+                    size={45}
+                    iconColor="white"
+                    onPress={() => navigation.navigate("StoresListScreen")}
+                />
+                <IconButton
+                    icon="home-outline"
+                    size={45}
+                    iconColor="#BCEDC3"
+                    onPress={() => navigation.navigate("Home")}
+                />
+                <IconButton
+                    icon="silverware-fork-knife"
+                    size={45}
+                    iconColor="white"
+                    onPress={() => navigation.navigate("RecipeList")}
+                />
+            </View>
+        </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
+    content: {
+        flexGrow: 1,
+        alignItems: "center",
+        paddingHorizontal: 20,
+        paddingTop: 30,
+        paddingBottom: 200
+    },
+    scrollContainer: {
+        flexGrow: 1,
+        paddingBottom: 30
+    },
     container: {
         flex: 1,
         marginTop: StatusBar.currentHeight
@@ -214,6 +233,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         bottom: 0,
         left: 0,
-        right: 0
+        right: 0,
+        zIndex: 10
     }
 });

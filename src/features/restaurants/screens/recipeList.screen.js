@@ -13,7 +13,9 @@ import {
 import { TextInput, IconButton } from "react-native-paper";
 import { getRecipeList } from "../components/data";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Skeleton } from "moti/skeleton";
 
+// Recipe Card Component
 const RecipeCard = ({ item, navigation }) => {
     const scaleAnim = useRef(new Animated.Value(1)).current;
 
@@ -37,8 +39,7 @@ const RecipeCard = ({ item, navigation }) => {
         <Pressable
             onPressIn={handlePressIn}
             onPressOut={handlePressOut}
-            onPress={() => navigation.navigate("RecipeDetail", { recipeId: item.id })}
-        >
+            onPress={() => navigation.navigate("RecipeDetail", { recipeId: item.id })}>
             <Animated.View style={[styles.item, { transform: [{ scale: scaleAnim }] }]}>
                 <View style={styles.itemRow}>
                     <View style={styles.imageContainer}>
@@ -61,12 +62,15 @@ const RecipeCard = ({ item, navigation }) => {
     );
 };
 
+// Recipe List Screen
 export const RecipeListScreen = ({ navigation }) => {
     const [recipeList, setRecipeList] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getRecipeList().then((data) => {
             setRecipeList(data);
+            setTimeout(() => setLoading(false), 1000);
         });
     }, []);
 
@@ -112,22 +116,65 @@ export const RecipeListScreen = ({ navigation }) => {
                         />
                     </View>
                 </View>
-                
-                {/* Header */}
+
+                {/* Header Section */}
                 <View style={styles.headerRow}>
-                    <MaterialCommunityIcons 
-                        name="silverware-fork-knife" 
-                        size={28} 
-                        color="#705E4E" 
-                        style={{ marginRight: 8 }} 
-                        />
+                    <MaterialCommunityIcons
+                        name="silverware-fork-knife"
+                        size={28}
+                        color="#705E4E"
+                        style={{ marginRight: 8 }}
+                    />
                     <Text style={styles.headerText}>Recipes</Text>
                 </View>
 
+                {/* Recipe Cards*/}
                 <ScrollView>
-                    {recipeList.map((item) => (
-                        <RecipeCard key={item.id} item={item} navigation={navigation} />
-                    ))}
+                    {loading
+                        ? Array.from({ length: 5 }).map((_, index) => (
+                              <View key={index} style={[styles.item, { minHeight: 110 }]}>
+                                  <View style={styles.itemRow}>
+                                      <View style={styles.imageContainer}>
+                                          <Skeleton
+                                              width={80}
+                                              height={80}
+                                              radius="round"
+                                              colorMode="light"
+                                              boneColor="#dee2e6"
+                                              highlightColor="#f7f7f7"
+                                          />
+                                      </View>
+                                      <View style={styles.itemContent}>
+                                          <Skeleton
+                                              width={180}
+                                              height={20}
+                                              radius="round"
+                                              colorMode="light"
+                                              boneColor="#dee2e6"
+                                              highlightColor="#f7f7f7"
+                                              style={{ marginBottom: 8 }}
+                                          />
+                                          <View style={styles.skeletonDetailsRow}>
+                                              {[1, 2, 3].map((_, i) => (
+                                                  <Skeleton
+                                                      key={i}
+                                                      width={50}
+                                                      height={16}
+                                                      radius="round"
+                                                      colorMode="light"
+                                                      boneColor="#dee2e6"
+                                                      highlightColor="#f7f7f7"
+                                                      style={{ marginRight: 10 }}
+                                                  />
+                                              ))}
+                                          </View>
+                                      </View>
+                                  </View>
+                              </View>
+                          ))
+                        : recipeList.map((item) => (
+                              <RecipeCard key={item.id} item={item} navigation={navigation} />
+                          ))}
                 </ScrollView>
             </View>
 
@@ -156,6 +203,7 @@ export const RecipeListScreen = ({ navigation }) => {
     );
 };
 
+// Styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -240,7 +288,8 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     itemContent: {
-        justifyContent: "center"
+        justifyContent: "center",
+        flex: 1
     },
     itemTitle: {
         marginBottom: 6,
@@ -257,6 +306,10 @@ const styles = StyleSheet.create({
         gap: 10,
         width: "100%",
         overflow: "hidden"
+    },
+    skeletonDetailsRow: {
+        flexDirection: "row",
+        marginTop: 8
     },
     detailText: {
         minWidth: "10%",

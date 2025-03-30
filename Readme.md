@@ -308,4 +308,4 @@ Now that we’ve installed **VSCode, Node.js, and Expo CLI**, let's set up **And
 
 ---
 
-### **🚀 Now You're Ready to Start Developing!**
+### **🚀 Now, You're Ready to Start Developing!**

@@ -87,7 +87,7 @@ export const RecipeListScreen = ({ navigation }) => {
             {/* Main Content */}
             <View style={styles.mainContent}>
                 {/* Search Bar */}
-                <View style={styles.searchRow}>
+                {/* <View style={styles.searchRow}>
                     <View style={styles.searchContainer}>
                         <TextInput
                             placeholder="Search recipes"
@@ -115,7 +115,7 @@ export const RecipeListScreen = ({ navigation }) => {
                             onPress={() => console.log("Recipe-filter pressed")}
                         />
                     </View>
-                </View>
+                </View> */}
 
                 {/* Header Section */}
                 <View style={styles.headerRow}>

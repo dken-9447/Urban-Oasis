@@ -354,7 +354,7 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
                             </Text>
                         </View>
 
-                        <View className="mt-10" />
+                        {/* <View className="mt-10" />
                         <Button
                             icon="magnify"
                             mode="contained"
@@ -362,9 +362,9 @@ export const RecipeDetailScreen = ({ navigation, route }) => {
                             onPress={() => console.log("Locate store button pressed.")}>
                             Locate Store
                         </Button>
-                        <View className="mt-10" />
+                        <View className="mt-10" />*/}
 
-                        <View style={{ marginBottom: 100 }} />
+                        <View style={{ marginBottom: 250 }} /> 
                     </View>
                 </ScrollView>
             </View>

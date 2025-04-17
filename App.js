@@ -24,5 +24,7 @@ export default function App() {
                 <Stack.Screen name="StoreDetailScreen" component={StoreDetailScreen} />
             </Stack.Navigator>
         </NavigationContainer>
+
+        
     );
 }

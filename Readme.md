@@ -19,6 +19,18 @@
 
 </div>
 
+<div align="center">
+
+[![📄 Download Developer Guide](https://img.icons8.com/ios-filled/50/000000/pdf.png)](docs/Developer-Documentation.pdf)
+
+<p>
+  <a href="docs\Developer Documentation.pdf" target="_blank">
+    Download the Developer Documentation (PDF)
+  </a>
+</p>
+
+</div>
+
 <h2 id="layout">🎨 Layout</h2>
 
 <p align="center">
@@ -128,7 +140,7 @@ code --install-extension dsznajder.es7-react-js-snippets
     npm -v
     ```
     - You should see version numbers displayed.
-      
+
 ---
 
 ## **📂 2. Clone the Project and Install Dependencies**
@@ -167,6 +179,7 @@ yarn install
 This will install all required libraries and packages based on the `package.json` file.
 
 ### **➡️ Step 5.1: Obtain & Set Up the .env File**
+
 ‼️Important‼️: The project requires API keys and environment variables stored in a .env file.
 
 ✅ Follow these steps to configure it:
@@ -185,6 +198,7 @@ PROJECT_ID=your-project-id-here
 ‼️Important‼️: Ensure to rename env file after it has been dragged and dropped into root directory to ".env". Otherwise, it won't let you change it due to file naming restrictions.
 
 ### **➡️ Step 5.2: Install react-native-dotenv**
+
 Your app requires the react-native-dotenv package to read the .env file.
 
 📥 Install it using npm:
